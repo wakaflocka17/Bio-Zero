@@ -1,7 +1,9 @@
 # VGD PROJECT 2022/23 - UNICA :nerd_face: :computer: :video_game:
 
-### Nome gioco:
-> Bio-Zero
+## 📝 Dev-Diary:
+> https://cold-danthus-bab.notion.site/VGD-DEV-DIARY-2e0ac534a3b145feb5f5d6c0da320472
+
+## 🧑🏻‍💻 Team Members:
 
 #### Francesco Congiu
 > Matricola: 60/61/65962
