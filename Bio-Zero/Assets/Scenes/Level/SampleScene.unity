@@ -13058,6 +13058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf2e6064dd7b346278c7e099591a7fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 348708374}
   smoothTime: 0.05
   speed: 5
   gravityMultiplier: 3
