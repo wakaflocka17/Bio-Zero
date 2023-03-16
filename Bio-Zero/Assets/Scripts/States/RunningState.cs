@@ -12,6 +12,6 @@ public class RunningState : MovementBaseState
 
     public override void UpdateState(PlayerController movement)
     {
-
+        
     }
 }
