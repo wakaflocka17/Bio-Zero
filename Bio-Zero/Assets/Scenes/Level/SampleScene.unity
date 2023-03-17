@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -390,7 +390,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 306947718}
-  - component: {fileID: 306947719}
   m_Layer: 0
   m_Name: FirstCheckpoint
   m_TagString: Untagged
@@ -413,29 +412,6 @@ Transform:
   m_Father: {fileID: 337819958}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &306947719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 306947717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 448540634780e4a1883ae0ea609d1c14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myZombies:
-  - {fileID: 4087046518018348746}
-  - {fileID: 1898825989243057504}
-  - {fileID: 4276941798096890858}
-  spawnerZombies:
-  - {fileID: 306947718}
-  - {fileID: 320949958}
-  - {fileID: 23397747}
-  - {fileID: 435074638}
-  pathEnemy: []
-  playerTarget: {fileID: 0}
 --- !u!1 &318706478
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +508,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 337819958}
+  - component: {fileID: 337819959}
   m_Layer: 0
   m_Name: CheckpointPath
   m_TagString: Untagged
@@ -558,6 +535,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &337819959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337819957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448540634780e4a1883ae0ea609d1c14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myZombies:
+  - {fileID: 4087046518018348746}
+  - {fileID: 1898825989243057504}
+  - {fileID: 4276941798096890858}
+  spawnerZombies:
+  - {fileID: 306947718}
+  - {fileID: 320949958}
+  - {fileID: 23397747}
+  - {fileID: 435074638}
 --- !u!1 &338461542
 GameObject:
   m_ObjectHideFlags: 0
@@ -4970,6 +4968,7 @@ MonoBehaviour:
   - {fileID: 23397747}
   - {fileID: 435074638}
   playerTarget: {fileID: 6583239770459164956}
+  gravity: -9.81
 --- !u!137 &1998402194833313618
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -6918,6 +6917,7 @@ MonoBehaviour:
   - {fileID: 23397747}
   - {fileID: 435074638}
   playerTarget: {fileID: 6583239770459164956}
+  gravity: -9.81
 --- !u!95 &4183053691116031756
 Animator:
   serializedVersion: 5
@@ -8575,6 +8575,7 @@ MonoBehaviour:
   - {fileID: 23397747}
   - {fileID: 435074638}
   playerTarget: {fileID: 6583239770459164956}
+  gravity: -9.81
 --- !u!1 &4276995226044271060
 GameObject:
   m_ObjectHideFlags: 0
