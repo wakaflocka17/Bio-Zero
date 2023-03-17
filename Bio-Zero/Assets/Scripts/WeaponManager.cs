@@ -4,12 +4,27 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
+    [Header("Fire Rate")]
     [SerializeField] float fireRate;
     private float fireRateTimer;
     [SerializeField] bool semiAuto;
+
+    [Header("Bullet Properties")]
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform barrelPos;
+    [SerializeField] float bulletVelocity;
+    [SerializeField] int bulletsPerShot;
+    AimStateManager aim;
+
+    [SerializeField] AudioClip gunShot;
+    AudioSource audioSource;
+    WeaponAmmo ammo;
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        aim = GetComponentInParent<AimStateManager>();
+        ammo = GetComponent<WeaponAmmo>();
         fireRateTimer = fireRate;
     }
 
@@ -23,6 +38,8 @@ public class WeaponManager : MonoBehaviour
     bool ShouldFire()
     {
         fireRateTimer += Time.deltaTime;
+
+        if(ammo.currentAmmo == 0) return false;
 
         if(fireRateTimer < fireRate) 
             return false;
@@ -39,7 +56,15 @@ public class WeaponManager : MonoBehaviour
     void Fire()
     {
         fireRateTimer = 0;
-        Debug.Log("Fire");
+        barrelPos.LookAt(aim.aimPos);
+        audioSource.PlayOneShot(gunShot);
+        ammo.currentAmmo--;
+        for(int i = 0; i < bulletsPerShot; i++)
+        {
+            GameObject currentBullet = Instantiate(bullet, barrelPos.position, barrelPos.rotation);
+            Rigidbody rb = currentBullet.GetComponent<Rigidbody>();
+            rb.AddForce(barrelPos.forward * bulletVelocity, ForceMode.Impulse);
+        }
     }
 }
 
