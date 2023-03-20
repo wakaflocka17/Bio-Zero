@@ -23,6 +23,8 @@ public class EnemyMovement : MonoBehaviour
     private float initWaitTime = 1f;
     
     public GameObject playerTarget;
+    [SerializeField] float gravity = -9.81f;
+    
     // Start is called before the first frame update
     void Start()
     {
