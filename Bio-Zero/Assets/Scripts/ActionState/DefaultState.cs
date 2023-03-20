@@ -7,15 +7,15 @@ public class DefaultState : ActionBaseState
     // Start is called before the first frame update
     public override void EnterState(ActionStateManager actions)
     {
-
         actions.rHandAim.weight = 1;
         actions.lHandIK.weight = 1;
+
     }
 
     public override void UpdateState(ActionStateManager actions)
     {
-        actions.rHandAim.weight = Mathf.Lerp(actions.rHandAim.weight, 1, 10 * Time.deltaTime);
-        actions.lHandIK.weight = Mathf.Lerp(actions.lHandIK.weight, 1, 10 * Time.deltaTime);
+        actions.rHandAim.weight = Mathf.Lerp(actions.rHandAim.weight, 1, 5 * Time.deltaTime);
+        actions.lHandIK.weight = Mathf.Lerp(actions.lHandIK.weight, 1, 5 * Time.deltaTime);
 
         if(Input.GetKeyDown(KeyCode.R) && CanReload(actions))
         {

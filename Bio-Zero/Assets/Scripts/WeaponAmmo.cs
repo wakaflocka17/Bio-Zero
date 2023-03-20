@@ -8,13 +8,13 @@ public class WeaponAmmo : MonoBehaviour
     public int extraAmmo;
     public int currentAmmo;
 
-    [SerializeField] AudioClip magOutSound;
-    AudioSource audioSource;
-    
+    public AudioClip magOutSound;
+    public AudioClip magInSound;
+    public AudioClip slideBackSound;
+     
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         currentAmmo = clipSize;
     }
 
@@ -23,14 +23,14 @@ public class WeaponAmmo : MonoBehaviour
         
         if(extraAmmo >= clipSize)
         {
-            audioSource.PlayOneShot(magOutSound);
+            
             int ammoToReload = clipSize - currentAmmo;
             extraAmmo -= ammoToReload;
             currentAmmo += ammoToReload;
         }
         else if(extraAmmo > 0)
         {
-            audioSource.PlayOneShot(magOutSound);
+            
             if(extraAmmo + currentAmmo > clipSize)
             {
                 int leftOverAmmo = extraAmmo + currentAmmo - clipSize;
