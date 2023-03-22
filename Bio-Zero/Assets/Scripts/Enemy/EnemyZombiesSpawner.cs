@@ -14,14 +14,14 @@ public class EnemyZombiesSpawner : MonoBehaviour
     public GameObject[] myZombies; //Containes enemy zombies object
     public Transform[] spawnerZombies; //Transform path for Enemy
 
+    [SerializeField] EnemyHealth enemyHealth;
+
 
     // Start is called before the first frame update
     void Start()
     {
-
         randomIndexZombies = 0;
         randomIndexSpawner = new Vector3();
-
         waitTime = initWaitTime;
     }
 
@@ -33,7 +33,7 @@ public class EnemyZombiesSpawner : MonoBehaviour
             randomIndexZombies = Random.Range(0, myZombies.Length);
             randomIndexSpawner = spawnerZombies[Random.Range(0, spawnerZombies.Length)].position;
 
-            Instantiate(myZombies[randomIndexZombies], randomIndexSpawner, Quaternion.identity);
+            GameObject currentZombie = Instantiate(myZombies[randomIndexZombies], randomIndexSpawner, Quaternion.identity);
 
             waitTime = initWaitTime;
         }

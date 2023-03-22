@@ -22,7 +22,11 @@ public class PlayerController : MonoBehaviour
 
    [HideInInspector] public Animator animator;
 
+   CharacterHealth playerHealth;
+
    private void Start() {
+
+     playerHealth = GetComponent<CharacterHealth>();
      animator = GetComponent<Animator>();
      controller = GetComponent<CharacterController>();
      SwitchState(Idle);
@@ -31,6 +35,8 @@ public class PlayerController : MonoBehaviour
    
    private void Update() 
    {
+     if(playerHealth.health > 0)
+     {    
         GetDirection();
         Gravity();
 
@@ -39,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
 
         currentState.UpdateState(this);
+     }
    }
 
    private void GetDirection()

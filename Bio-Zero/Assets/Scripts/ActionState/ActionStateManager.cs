@@ -8,6 +8,7 @@ public class ActionStateManager : MonoBehaviour
     [HideInInspector] public ActionBaseState currentState;
     public ReloadState Reload = new ReloadState();
     public DefaultState Default = new DefaultState();
+    
 
     public GameObject currentWeapon;
     [HideInInspector] public WeaponAmmo ammo;
@@ -38,7 +39,7 @@ public class ActionStateManager : MonoBehaviour
         currentState = state;
         currentState.EnterState(this);
     }
-
+    
     public void WeaponReloaded()
     {
         ammo.Reload();

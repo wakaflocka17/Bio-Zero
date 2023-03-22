@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -22,13 +23,31 @@ public class WeaponManager : MonoBehaviour
     WeaponAmmo ammo;
 
     ActionStateManager actions;
+
+    [SerializeField] CinemachineVirtualCamera vCam;
+    [HideInInspector] public float hipFov;
+    [HideInInspector] public float currentFov;
+    public float fovSmoothSpeed = 1f;
+
+    Light muzzleFlashlight;
+    ParticleSystem gunShotParticles;
+    float lightIntensity;
+    [SerializeField] float lightReturnSpeed = 20;
+    CharacterHealth playerHealth;
+
     // Start is called before the first frame update
     void Start()
     {
+        playerHealth = GetComponentInParent<CharacterHealth>();
+        hipFov = vCam.m_Lens.FieldOfView;
         audioSource = GetComponent<AudioSource>();
         aim = GetComponentInParent<AimStateManager>();
         ammo = GetComponent<WeaponAmmo>();
         actions = GetComponentInParent<ActionStateManager>();
+        muzzleFlashlight = GetComponentInChildren<Light>();
+        lightIntensity = muzzleFlashlight.intensity;
+        muzzleFlashlight.intensity = 0;
+        gunShotParticles = GetComponentInChildren<ParticleSystem>();
         fireRateTimer = fireRate;
     }
 
@@ -36,7 +55,11 @@ public class WeaponManager : MonoBehaviour
     void Update()
     {
         if(ShouldFire()) 
+        {
+            vCam.m_Lens.FieldOfView = Mathf.Lerp(vCam.m_Lens.FieldOfView, currentFov, fovSmoothSpeed * Time.deltaTime);
             Fire();
+        }
+        muzzleFlashlight.intensity = Mathf.Lerp(muzzleFlashlight.intensity, 0, lightReturnSpeed * Time.deltaTime);
     }
 
     bool ShouldFire()
@@ -44,6 +67,9 @@ public class WeaponManager : MonoBehaviour
         fireRateTimer += Time.deltaTime;
 
         if(ammo.currentAmmo == 0) 
+            return false;
+            
+        if(playerHealth.health <= 0)
             return false;
 
         if(fireRateTimer < fireRate) 
@@ -61,9 +87,10 @@ public class WeaponManager : MonoBehaviour
 
     void Fire()
     {
+    
         fireRateTimer = 0;
         ammo.currentAmmo--;
-
+        TriggerMuzzleFlash();
         barrelPos.LookAt(aim.aimPos);
         audioSource.PlayOneShot(gunShot);
         
@@ -76,6 +103,12 @@ public class WeaponManager : MonoBehaviour
             Rigidbody rb = currentBullet.GetComponent<Rigidbody>();
             rb.AddForce(barrelPos.forward * bulletVelocity, ForceMode.Impulse);
         }
+    }
+
+    void TriggerMuzzleFlash()
+    {
+        gunShotParticles.Play();
+        muzzleFlashlight.intensity = lightIntensity;
     }
 }
 

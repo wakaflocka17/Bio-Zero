@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    GameObject enemy;
-    [SerializeField] float health;
+    [SerializeField] public float health;
+    Animator animator;
     // Start is called before the first frame update
+    private void Start() 
+    {
+        health = 20;
+        animator= GetComponent<Animator>(); 
+    }
+
     public void TakeDamage(float damage)
     {
         if(health > 0)
@@ -14,7 +20,6 @@ public class EnemyHealth : MonoBehaviour
             health -= damage;
             if(health <= 0)
                 EnemyDeath();
-            Debug.Log("Hit");
         }
         
     }
@@ -22,6 +27,5 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     public void EnemyDeath()
     {
-        Debug.Log("death");
     }
 }

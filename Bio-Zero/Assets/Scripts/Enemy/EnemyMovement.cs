@@ -24,14 +24,23 @@ public class EnemyMovement : MonoBehaviour
     
     public GameObject playerTarget;
     [SerializeField] float gravity = -9.81f;
+
+    EnemyHealth health;
+    ParticleSystem bloodSplatter;
+
+    [SerializeField] List<Collider> handColliders;
+    [SerializeField] CharacterHealth playerHealth;
+
+    float damage;
     
     // Start is called before the first frame update
     void Start()
     {
+        health = GetComponent<EnemyHealth>();
         enemy = GetComponent<NavMeshAgent>();
         playerTarget = GameObject.FindWithTag("Player");
         enemyState = GetComponent<Animator>();
-
+        bloodSplatter = GetComponentInChildren<ParticleSystem>();
         waitTime = initWaitTime;
         pathEnemyIndex = Random.Range(0, pathEnemy.Length);
     }
@@ -39,19 +48,31 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         ResetAnimatorState(enemyState);
-        float distance = Vector3.Distance(playerTarget.transform.position, transform.position);
-
-        if (distance > rangeAlert)
+        if(health.health > 0)
         {
-            flag = false;
-            idleStateMode();
+            
+            float distance = Vector3.Distance(playerTarget.transform.position, transform.position);
+
+            if (distance > rangeAlert && playerHealth.health <= 0)
+            {
+                idleStateMode();
+            }
+            else
+            {
+                followPlayer();
+            }
         }
         else
         {
-            flag = true;
-            followPlayer();
+            bloodSplatter.Play();
+            enemyState.SetBool("isDead", true);
         }
+
+        bloodSplatter.Stop();
+        
+        
     }
 
     private void idleStateMode()
@@ -78,15 +99,14 @@ public class EnemyMovement : MonoBehaviour
         //Set distance offset between enemy ai and player
         distanceEnemyPlayer = Vector3.Distance(transform.position, playerTarget.transform.position);
         
-        if (distanceEnemyPlayer < rangeAttack)
+        if (distanceEnemyPlayer < rangeAttack && playerHealth.health > 0)
         { //Distance between Enemy and Player is lower than 1
-            enemyState.SetBool("isAttack", true);
+            AttackState();
         }
         
-        else if (distanceEnemyPlayer < rangeAlert)
+        else if (distanceEnemyPlayer < rangeAlert && playerHealth.health > 0)
         { //Distance between Enemy and Player is lower than 10
-            enemyState.SetBool("isAlert", true);
-            enemy.SetDestination(playerTarget.transform.position);
+            AllertState();
         }
     }
 
@@ -95,5 +115,32 @@ public class EnemyMovement : MonoBehaviour
         animator.SetBool("isAlert", false);
         animator.SetBool("isAttack", false);
     }
+
+    void AllertState()
+    {
+        enemyState.SetBool("isAlert", true);
+        enemy.SetDestination(playerTarget.transform.position);
+    }
+
+    void AttackState()
+    {
+        enemyState.SetBool("isAttack", true);
+    }
+
+    void EnableCollider()
+    {
+        foreach(Collider sphere in handColliders){
+            sphere.enabled = true;
+        }
+    }
+
+    void DisableCollider()
+    {
+        foreach(Collider sphere in handColliders){
+            sphere.enabled = false;
+        }
+    }
+
+    
 
 }
