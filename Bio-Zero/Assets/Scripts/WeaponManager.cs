@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using System;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -19,8 +20,8 @@ public class WeaponManager : MonoBehaviour
     AimStateManager aim;
 
     [SerializeField] AudioClip gunShot;
-    AudioSource audioSource;
-    WeaponAmmo ammo;
+    [HideInInspector] public AudioSource audioSource;
+    [HideInInspector] public WeaponAmmo ammo;
 
     ActionStateManager actions;
 
@@ -87,7 +88,6 @@ public class WeaponManager : MonoBehaviour
 
     void Fire()
     {
-    
         fireRateTimer = 0;
         ammo.currentAmmo--;
         TriggerMuzzleFlash();
@@ -110,5 +110,7 @@ public class WeaponManager : MonoBehaviour
         gunShotParticles.Play();
         muzzleFlashlight.intensity = lightIntensity;
     }
+
+
 }
 

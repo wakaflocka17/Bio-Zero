@@ -26,7 +26,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float gravity = -9.81f;
 
     EnemyHealth health;
-    ParticleSystem bloodSplatter;
+    
+   [SerializeField] ParticleSystem bloodSplatter;
 
     [SerializeField] List<Collider> handColliders;
     [SerializeField] CharacterHealth playerHealth;
@@ -40,7 +41,6 @@ public class EnemyMovement : MonoBehaviour
         enemy = GetComponent<NavMeshAgent>();
         playerTarget = GameObject.FindWithTag("Player");
         enemyState = GetComponent<Animator>();
-        bloodSplatter = GetComponentInChildren<ParticleSystem>();
         waitTime = initWaitTime;
         pathEnemyIndex = Random.Range(0, pathEnemy.Length);
     }
@@ -66,11 +66,8 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            bloodSplatter.Play();
             enemyState.SetBool("isDead", true);
         }
-
-        bloodSplatter.Stop();
         
         
     }
@@ -139,6 +136,15 @@ public class EnemyMovement : MonoBehaviour
         foreach(Collider sphere in handColliders){
             sphere.enabled = false;
         }
+    }
+
+    void ShowBlood()
+    {
+        bloodSplatter.Play();
+    }
+    void StopBlood()
+    {
+        bloodSplatter.Stop();
     }
 
     

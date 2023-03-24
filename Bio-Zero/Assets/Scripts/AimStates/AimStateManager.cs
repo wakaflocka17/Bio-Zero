@@ -23,7 +23,7 @@ public class AimStateManager : MonoBehaviour
     public float fovSmoothSpeed = 10f;
 
     public Transform aimPos;
-    [SerializeField] float aimSmoothSpeed = 20;
+    [SerializeField] public float aimSmoothSpeed = 20;
     [SerializeField] LayerMask aimMask;
     CharacterHealth playerHealth;
 

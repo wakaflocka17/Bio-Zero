@@ -26,6 +26,10 @@ public class CharacterHealth : MonoBehaviour
         
     }
 
+    public void DisableHitAnimation()
+    {
+        animator.SetBool("Hit", false);
+    }
     // Update is called once per frame
     public void EnemyDeath()
     {
