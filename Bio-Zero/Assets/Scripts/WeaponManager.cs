@@ -16,25 +16,37 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] float bulletVelocity;
     [SerializeField] int bulletsPerShot;
     public float damage = 20;
-    AimStateManager aim;
-
+    
+    [Header("Audio Properties")]
     [SerializeField] AudioClip gunShot;
+<<<<<<< Updated upstream
     AudioSource audioSource;
     WeaponAmmo ammo;
 
     ActionStateManager actions;
 
+=======
+    [HideInInspector] public AudioSource audioSource;
+    
+    [Header("Camera Properties")]
+>>>>>>> Stashed changes
     [SerializeField] CinemachineVirtualCamera vCam;
     [HideInInspector] public float hipFov;
     [HideInInspector] public float currentFov;
     public float fovSmoothSpeed = 1f;
 
+    [Header("Weapon effects")]
     Light muzzleFlashlight;
     ParticleSystem gunShotParticles;
     float lightIntensity;
     [SerializeField] float lightReturnSpeed = 20;
-    CharacterHealth playerHealth;
 
+    [HideInInspector] public WeaponAmmo ammo;
+    ActionStateManager actions;
+    CharacterHealth playerHealth;
+    AimStateManager aim;
+
+    [HideInInspector] public bool isSwitching = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +78,9 @@ public class WeaponManager : MonoBehaviour
     {
         fireRateTimer += Time.deltaTime;
 
+        if(isSwitching)
+            return false;
+            
         if(ammo.currentAmmo == 0) 
             return false;
             

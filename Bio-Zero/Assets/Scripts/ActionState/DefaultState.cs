@@ -9,7 +9,10 @@ public class DefaultState : ActionBaseState
     {
         actions.rHandAim.weight = 1;
         actions.lHandIK.weight = 1;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     }
 
     public override void UpdateState(ActionStateManager actions)
@@ -21,7 +24,10 @@ public class DefaultState : ActionBaseState
         {
             actions.SwitchState(actions.Reload);
         }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     }
 
     bool CanReload(ActionStateManager action)
