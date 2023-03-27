@@ -38,11 +38,9 @@ public class ActionStateManager : MonoBehaviour
         ammo = currentWeapon.ammo;
         audioSource = currentWeapon.audioSource;
 
-        if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3)) 
-        {
+        if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2)
+        || Input.GetKeyDown(KeyCode.Alpha3)) {
             WeaponSwitched();
-            rHandAim.weight = 0;
-            lHandIK.weight = 0;
         }
 
         currentState.UpdateState(this);
@@ -54,7 +52,6 @@ public class ActionStateManager : MonoBehaviour
         currentState.EnterState(this);
     }
     
-    //called at the end of reload animation
 
     public void WeaponReloaded()
     {
@@ -66,11 +63,8 @@ public class ActionStateManager : MonoBehaviour
     {
         SwitchWeapon();
         SwitchState(Default);
-        rHandAim.weight = 0;
-        lHandIK.weight = 0;
     }
 
-    //sounds called in the reload animation
     public void MagOut()
    {
         audioSource.PlayOneShot(ammo.magOutSound);
@@ -86,10 +80,10 @@ public class ActionStateManager : MonoBehaviour
         audioSource.PlayOneShot(ammo.slideBackSound);
    }
 
-    //function to activate the weapon chosen by the player and deactivate all the others 
    public void SwitchWeapon()
     {
         int weaponIndex = 0;
+        // bool is_a_number = Int32.TryParse(Input.inputString, out weaponIndex);
 
         if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2)
         || Input.GetKeyDown(KeyCode.Alpha3)) {
@@ -111,17 +105,4 @@ public class ActionStateManager : MonoBehaviour
 
         print(weaponIndex);
     } 
-
-    //called in the switchWeapon animation as an event to stop shooting while we are switching the weapon
-    public void stopFire()
-    {
-        currentWeapon.isSwitching = true;
-    }
-
-    //called in the switchWeapon animation as an event to start shooting again after we switched weapon
-    public void startFire()
-    {
-        currentWeapon.isSwitching = false;
-    }
-
 }

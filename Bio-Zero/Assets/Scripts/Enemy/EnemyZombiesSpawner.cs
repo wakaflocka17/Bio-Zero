@@ -33,7 +33,8 @@ public class EnemyZombiesSpawner : MonoBehaviour
             randomIndexZombies = Random.Range(0, myZombies.Length);
             randomIndexSpawner = spawnerZombies[Random.Range(0, spawnerZombies.Length)].position;
 
-            GameObject currentZombie = Instantiate(myZombies[randomIndexZombies], randomIndexSpawner, Quaternion.identity);
+            //Spawn random zombie in random position
+            Instantiate(myZombies[randomIndexZombies], randomIndexSpawner, Quaternion.identity);
 
             waitTime = initWaitTime;
         }

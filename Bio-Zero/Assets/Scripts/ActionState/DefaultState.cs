@@ -8,8 +8,11 @@ public class DefaultState : ActionBaseState
     // Start is called before the first frame update
     public override void EnterState(ActionStateManager actions)
     {
+        
         actions.rHandAim.weight = 1;
         actions.lHandIK.weight = 1;
+        
+
     }
 
     public override void UpdateState(ActionStateManager actions)
@@ -24,6 +27,13 @@ public class DefaultState : ActionBaseState
             Debug.Log("ricarica");
             actions.SwitchState(actions.Reload);
         }
+        // else if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2)
+        // || Input.GetKeyDown(KeyCode.Alpha3))
+        // {
+        //     actions.SwitchState(actions.ChangeWeapon);
+        // }
+
+
     }
 
     bool CanReload(ActionStateManager action)

@@ -12,7 +12,7 @@ public class Weapons : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       currentWeapon = weapons[1]; 
+       currentWeapon = weapons[0]; 
     }
 
     // Update is called once per frame

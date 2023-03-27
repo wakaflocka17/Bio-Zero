@@ -20,7 +20,7 @@ public class EnemyMovement : MonoBehaviour
     private float rangeAttack = 01.0f;
     
     private float waitTime;
-    private float initWaitTime = 1f;
+    private float initWaitTime = 3.0f;
     
     public GameObject playerTarget;
     [SerializeField] float gravity = -9.81f;
@@ -50,6 +50,7 @@ public class EnemyMovement : MonoBehaviour
     {
         
         ResetAnimatorState(enemyState);
+        
         if(health.health > 0)
         {
             
@@ -75,10 +76,8 @@ public class EnemyMovement : MonoBehaviour
     private void idleStateMode()
     {
         enemy.SetDestination(pathEnemy[pathEnemyIndex].position);
-
-        if (Vector3.Distance(transform.position, pathEnemy[pathEnemyIndex].position) < 3.0f)
-        {
-            if (waitTime <= 0)
+        
+        if (waitTime <= 0)
             {
                 enemyState.SetBool("isWalking", true);
                 pathEnemyIndex = Random.Range(0, pathEnemy.Length);
@@ -88,7 +87,6 @@ public class EnemyMovement : MonoBehaviour
             {
                 waitTime -= Time.deltaTime;
             }
-        }
     }
 
     private void followPlayer()
@@ -122,20 +120,6 @@ public class EnemyMovement : MonoBehaviour
     void AttackState()
     {
         enemyState.SetBool("isAttack", true);
-    }
-
-    void EnableCollider()
-    {
-        foreach(Collider sphere in handColliders){
-            sphere.enabled = true;
-        }
-    }
-
-    void DisableCollider()
-    {
-        foreach(Collider sphere in handColliders){
-            sphere.enabled = false;
-        }
     }
 
     void ShowBlood()

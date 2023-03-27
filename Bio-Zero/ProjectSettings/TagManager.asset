@@ -9,6 +9,7 @@ TagManager:
   - Casetta
   - Enemy
   - Bullet
+  - Boss
   layers:
   - Default
   - TransparentFX
