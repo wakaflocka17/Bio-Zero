@@ -22,6 +22,13 @@ public class Bullet : MonoBehaviour
             enemyHealth.TakeDamage(weapon.damage);
             
         }
+        
+        else if (other.gameObject.GetComponentInParent<BossHealth>())
+        {
+            BossHealth bossHealth = other.gameObject.GetComponentInParent<BossHealth>();
+            bossHealth.TakeDamage(weapon.damage);
+        }
+        
         Destroy(this.gameObject);
     }
 

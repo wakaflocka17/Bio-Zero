@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class BossHealth : MonoBehaviour
 {
-    [SerializeField] public float health;
-    Animator bossAnimator;
-    
+    public float health;
+    public Animator bossAnimator;
+
+    private int nPhase; //Start from one to three
+
     // Start is called before the first frame update
     private void Start() 
     {

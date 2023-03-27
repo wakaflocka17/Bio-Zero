@@ -118417,6 +118417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
+  bossAnimator: {fileID: 0}
 --- !u!64 &7577889888332385853
 MeshCollider:
   m_ObjectHideFlags: 0
