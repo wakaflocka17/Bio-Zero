@@ -78,15 +78,15 @@ public class EnemyMovement : MonoBehaviour
         enemy.SetDestination(pathEnemy[pathEnemyIndex].position);
         
         if (waitTime <= 0)
-            {
+        {
                 enemyState.SetBool("isWalking", true);
                 pathEnemyIndex = Random.Range(0, pathEnemy.Length);
                 waitTime = initWaitTime;
-            }
-            else
-            {
+        }
+        else
+        {
                 waitTime -= Time.deltaTime;
-            }
+        }
     }
 
     private void followPlayer()

@@ -9,12 +9,26 @@ public class BossAIMovement : MonoBehaviour
     public Transform[] pathBoss; //Transform path for Boss
     private int pathBossIndex;
     private int index;
+
+    private float fireRateTime;
+    private float initFireRateTime = 5.0f;
     
     private float waitTime;
     private float initWaitTime = 05.0f;
     
-    private float rangeAlert = 10.0f; //Range for set true the Alert flag
+    //Variable for first phase Boss
+    private float rangeAlert = 10.0f; //Range for set true the Alert flag for first stage
+    private float rangeStopAttack = 05.0f; //Range for set false the Attack Flag and stop the Animation Movement
     private float rangeAttack = 03.0f; //Range for set true the Attack flag
+
+    private float fireBallTime;
+    private float initFireBallTime = 03.0f;
+
+    private int nPhase;
+    
+    //Variable for second phase Boss
+    
+    // Create a timer for shooting fireball
     
     private BossHealth bossHealth;
     [SerializeField] float gravity = -9.81f; //Gravity to apply to boss
@@ -34,19 +48,45 @@ public class BossAIMovement : MonoBehaviour
         boss = GetComponent<NavMeshAgent>();
         playerTarget = GameObject.FindWithTag("Player");
         bossState = GetComponent<Animator>();
+        fireRateTime = initFireRateTime;
         waitTime = initWaitTime;
+        fireBallTime = initFireBallTime;
         pathBossIndex = Random.Range(0, pathBoss.Length);
+        nPhase = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
         ResetAnimatorState(bossState);
 
-        if(bossHealth.health > 0)
+        switch (bossHealth.getNPhase())
         {
+            //First stage of Boss
+            case 1:
+                firstPhase();
+                break;
             
+            //Second stage of Boss
+            case 2:
+                nPhase++;
+                secondPhase();
+                break;
+        }
+
+    }
+
+    public int getPhase()
+    {
+        return this.nPhase;
+    }
+    
+    private void firstPhase()
+    {
+        if (bossHealth.health > 0)
+        {
+
             float distance = Vector3.Distance(playerTarget.transform.position, transform.position);
 
             if (distance > rangeAlert)
@@ -58,18 +98,45 @@ public class BossAIMovement : MonoBehaviour
                 FollowPlayer();
             }
         }
-        
+
         else
         {
-            bossState.SetBool("isDead", true);
+            bossHealth.bossPowerUp();
         }
-        
+    }
+
+    private void secondPhase()
+    {
+        //If Boss is alive
+        if (bossHealth.health > 0)
+        {
+
+            float distance = Vector3.Distance(playerTarget.transform.position, transform.position);
+
+            // Setup the struct fighting, attack and follower for Boss Second Stage
+            
+            if (fireBallTime <= 0)
+            {
+                //Config the action for fireBall movement and hit player
+                fireBallTime = initFireBallTime;
+            }
+            else
+            {
+                fireBallTime -= Time.deltaTime;
+            }
+            
+        }
+
+        else
+        {
+            bossHealth.BossDeath();
+        }
     }
 
     private void IdleStateMode()
     {
         boss.SetDestination(pathBoss[pathBossIndex].position);
-
+        
         if (waitTime <= 0)
         {
             bossState.SetBool("isWalking", true);
@@ -91,7 +158,7 @@ public class BossAIMovement : MonoBehaviour
         { //Distance between Enemy and Player is lower than 1
             AttackState();
         }
-        
+
         else if (distanceEnemyPlayer < rangeAlert && playerHealth.health > 0)
         { //Distance between Enemy and Player is lower than 10
             AlertState();
@@ -100,6 +167,13 @@ public class BossAIMovement : MonoBehaviour
 
     public void ResetAnimatorState(Animator animator)
     {
+        //Reset for First Stage State
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isAlert", false);
+        animator.SetBool("isAttack", false);
+        
+        //Reset for Second Stage State
+        animator.SetBool("isIdle", false);
         animator.SetBool("isAlert", false);
         animator.SetBool("isAttack", false);
     }
