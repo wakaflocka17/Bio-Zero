@@ -13,10 +13,7 @@ public class EnemyZombiesSpawner : MonoBehaviour
     
     public GameObject[] myZombies; //Containes enemy zombies object
     public Transform[] spawnerZombies; //Transform path for Enemy
-
-    [SerializeField] EnemyHealth enemyHealth;
-
-
+    
     // Start is called before the first frame update
     void Start()
     {

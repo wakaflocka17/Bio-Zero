@@ -23,17 +23,16 @@ public class EnemyMovement : MonoBehaviour
     private float initWaitTime = 3.0f;
     
     public GameObject playerTarget;
-    [SerializeField] float gravity = -9.81f;
-
-    EnemyHealth health;
+    private float gravity = -9.81f;
     
-   [SerializeField] ParticleSystem bloodSplatter;
+    private float damageAttack;
+    private EnemyHealth health;
+    
+    [SerializeField] ParticleSystem bloodSplatter;
 
     [SerializeField] List<Collider> handColliders;
     [SerializeField] CharacterHealth playerHealth;
 
-    float damage;
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -120,6 +119,21 @@ public class EnemyMovement : MonoBehaviour
     void AttackState()
     {
         enemyState.SetBool("isAttack", true);
+    }
+    
+    void EnableCollider()
+    {
+        foreach(Collider coll in handColliders)
+        {
+            coll.isTrigger = true;
+        }
+    }
+    void DisableCollider()
+    {
+        foreach(Collider coll in handColliders)
+        {
+            coll.isTrigger = false;
+        }
     }
 
     void ShowBlood()

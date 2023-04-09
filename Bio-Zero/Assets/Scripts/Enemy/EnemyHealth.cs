@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] public float health;
+    [HideInInspector] public float health;
     Animator animator;
     // Start is called before the first frame update
     private void Start() 
     {
-        health = 20;
+        health = 100;
         animator= GetComponent<Animator>(); 
     }
 

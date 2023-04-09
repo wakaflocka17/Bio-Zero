@@ -168,12 +168,10 @@ public class BossAIMovement : MonoBehaviour
     public void ResetAnimatorState(Animator animator)
     {
         //Reset for First Stage State
-        animator.SetBool("isIdle", false);
         animator.SetBool("isAlert", false);
         animator.SetBool("isAttack", false);
         
         //Reset for Second Stage State
-        animator.SetBool("isIdle", false);
         animator.SetBool("isAlert", false);
         animator.SetBool("isAttack", false);
     }

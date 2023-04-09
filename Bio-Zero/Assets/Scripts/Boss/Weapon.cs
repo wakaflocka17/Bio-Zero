@@ -28,7 +28,6 @@ public class Weapon : MonoBehaviour
                 switch (boss.getPhase()) //Switch for different damage to take
                 {
                     case 1: playerHealth.TakeDamage(damageFirstPhase);
-                        Debug.Log("Ti sto infliggendo danno stronzo!");
                         break;
                     
                     case 2: playerHealth.TakeDamage(damageSecondPhase);
