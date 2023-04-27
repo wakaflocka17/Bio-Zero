@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class PauseMenuManager : MonoBehaviour
@@ -11,10 +12,13 @@ public class PauseMenuManager : MonoBehaviour
     public GameObject optionsMenu;
     public GameObject buttonPause;
     public GameObject buttonPlay;
+    public CinemachineBrain camera;
+    public CharacterController mouseController;
 
     public void Start()
     {
         Time.timeScale = 1f;
+        camera.enabled = true;
         buttonPressed = false;
         buttonPause.SetActive(true);
         buttonPlay.SetActive(false);
@@ -42,14 +46,17 @@ public class PauseMenuManager : MonoBehaviour
         buttonPause.SetActive(false);
         optionsMenu.SetActive(false);
         saveProgressMenu.SetActive(false);
+        camera.enabled = false;
+        mouseController.enabled = false;
+        FindObjectOfType<AimStateManager>().setMouseSense(0);
         
         /* Visible HUD Elements */
         buttonPressed = true;
         pauseMenu.SetActive(true);
         buttonPlay.SetActive(true);
-        
+
         /* Stop TimeScale meanwhile user using menù */
-        Time.timeScale = 0f;
+        Time.timeScale = 0;
     }
 
     public void Resume()
@@ -63,6 +70,9 @@ public class PauseMenuManager : MonoBehaviour
         
         /* Visible HUD Elements */
         buttonPause.SetActive(true);
+        camera.enabled = true;
+        mouseController.enabled = true;
+        FindObjectOfType<AimStateManager>().setMouseSense(1);
         
         /* Starting TimeScale meanwhile user pressing Escape Key */
         Time.timeScale = 1f;

@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
      vInput = Input.GetAxis("Vertical");
 
      dir = transform.forward * vInput + transform.right * hzInput;
-
+     
      controller.Move(dir.normalized * moveSpeed * Time.deltaTime);
    }
 
