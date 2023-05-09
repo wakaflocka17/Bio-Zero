@@ -27,12 +27,13 @@ public class PlayerController : MonoBehaviour
 
    private void Start()
    {
-
+  
      playerInfo = GetComponent<PlayerInfoManager>();
      playerHealth = GetComponent<CharacterHealth>();
      animator = GetComponent<Animator>();
      controller = GetComponent<CharacterController>();
      SwitchState(Idle);
+     
      
    }
    

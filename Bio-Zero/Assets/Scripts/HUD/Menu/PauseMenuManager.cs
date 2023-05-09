@@ -12,13 +12,13 @@ public class PauseMenuManager : MonoBehaviour
     public GameObject optionsMenu;
     public GameObject buttonPause;
     public GameObject buttonPlay;
-    public CinemachineBrain camera;
+    public CinemachineBrain cameraGame;
     public CharacterController mouseController;
 
     public void Start()
     {
         Time.timeScale = 1f;
-        camera.enabled = true;
+        cameraGame.enabled = true;
         buttonPressed = false;
         buttonPause.SetActive(true);
         buttonPlay.SetActive(false);
@@ -46,7 +46,7 @@ public class PauseMenuManager : MonoBehaviour
         buttonPause.SetActive(false);
         optionsMenu.SetActive(false);
         saveProgressMenu.SetActive(false);
-        camera.enabled = false;
+        cameraGame.enabled = false;
         mouseController.enabled = false;
         FindObjectOfType<AimStateManager>().setMouseSense(0);
         
@@ -70,7 +70,7 @@ public class PauseMenuManager : MonoBehaviour
         
         /* Visible HUD Elements */
         buttonPause.SetActive(true);
-        camera.enabled = true;
+        cameraGame.enabled = true;
         mouseController.enabled = true;
         FindObjectOfType<AimStateManager>().setMouseSense(1);
         

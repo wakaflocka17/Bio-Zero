@@ -5,13 +5,15 @@ public class CharacterHealth : MonoBehaviour
 {
     public Slider sliderHealth;
     public Slider sliderShield;
-    [SerializeField] public float health;
-    [SerializeField] public float shield;
+    public float health;
+    public float shield;
     Animator animator;
     // Start is called before the first frame update
     private void Start() 
     {
         animator = GetComponent<Animator>();
+        health = 100;
+        shield = 0;
     }
 
     public float getHealth()

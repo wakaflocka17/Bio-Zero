@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class InfoGameData : MonoBehaviour
+public class InfoGameData
 {
     public struct TimePlayer
     {
@@ -26,22 +26,19 @@ public class InfoGameData : MonoBehaviour
     
     //The default (and empty) constructor
     //will be used when there is no data to load
-    public InfoGameData()
+    public InfoGameData(string nickname)
     {
-        this.name = "";
-        this.numberLevel = 1;
-        this.numberKill = 0;
-        this.ammoPlayer.ammoInventory = 180;
-        this.ammoPlayer.currentAmmo = 30;
+        this.nickname = nickname;
+        numberLevel = 1;
+        numberKill = 0;
+        ammoPlayer.ammoInventory = 180;
+        ammoPlayer.currentAmmo = 30;
         
-        this.coordPlayer = Vector3.zero;
+        coordPlayer = Vector3.zero;
         
-        this.timePlayer.hours = 0;
-        this.timePlayer.minutes = 0;
-        this.timePlayer.seconds = 0;
-
-        this.statsLifePlayer.health = 100;
-        this.statsLifePlayer.shield = 0;
+        timePlayer.hours = 0;
+        timePlayer.minutes = 0;
+        timePlayer.seconds = 0;
     }
     
 }

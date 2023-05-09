@@ -8,42 +8,52 @@ public class DataManager : MonoBehaviour
 {
     [Header("File Storage Config")] 
     [SerializeField] private string fileName;
-    
+
+    [Header("User Input Text")] 
+    [SerializeField] public GameObject textNickname;
+    private string nickname;
+
     private InfoGameData infoPlayer;
     private List<InterfaceDataManager> dataObjects;
     private FileDataHandler dataHandler;
     
     public static DataManager instance { get; private set; }
-
+    
     private void Awake()
     {
-        if (instance != null)
+        if (instance != null && instance != this)
         {
-            Debug.LogError("DataManager instance not valid!");
+            Destroy(this);
         }
 
-        instance = this;
+        else
+        {
+            instance = this; 
+        }
+        
+        DontDestroyOnLoad(this);
     }
 
     private void Start()
     {
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
-        this.dataObjects = FindAllDataObjects();
-        LoadGame();
+        nickname = textNickname.ToString();
+        dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        dataObjects = FindAllDataObjects();
+        LoadGame(nickname);
     }
 
-    public void NewGame()
+    public void NewGame(string nickname)
     {
-        this.infoPlayer = new InfoGameData();
+        infoPlayer = new InfoGameData(nickname);
     }
     
-    public void LoadGame()
+    public void LoadGame(string nickname)
     {
-        this.infoPlayer = dataHandler.Load();
+        infoPlayer = dataHandler.Load();
         
-        if (this.infoPlayer == null)
+        if (infoPlayer == null)
         {
-            NewGame();
+            NewGame(nickname);
         }
 
         foreach (InterfaceDataManager singleDataObject in dataObjects)
