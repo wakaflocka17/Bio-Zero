@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WeaponAmmo : MonoBehaviour
+public class WeaponAmmo : MonoBehaviour, InterfaceDataManager
 {
     public int clipSize; //Dim for Clip Gunshot
     public int extraAmmo; //Ammo in Inventory
@@ -62,5 +62,17 @@ public class WeaponAmmo : MonoBehaviour
     {
         this.extraAmmo += extraAmmo;
         textAmmoInventory.text = extraAmmo.ToString();
+    }
+
+    public void LoadData(InfoGameData infoPlayer)
+    {
+        this.currentAmmo = infoPlayer.ammoPlayer.currentAmmo;
+        this.extraAmmo = infoPlayer.ammoPlayer.ammoInventory;
+    }
+
+    public void SaveData(ref InfoGameData infoPlayer)
+    {
+        infoPlayer.ammoPlayer.currentAmmo = this.currentAmmo;
+        infoPlayer.ammoPlayer.ammoInventory = this.extraAmmo;
     }
 }

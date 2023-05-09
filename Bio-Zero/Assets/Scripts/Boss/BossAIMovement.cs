@@ -139,7 +139,6 @@ public class BossAIMovement : MonoBehaviour
         
         if (waitTime <= 0)
         {
-            bossState.SetBool("isWalking", true);
             pathBossIndex = Random.Range(0, pathBoss.Length);
             waitTime = initWaitTime;
         }

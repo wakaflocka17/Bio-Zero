@@ -4,7 +4,7 @@ public class AxeManager : MonoBehaviour
 {
     [Header("Fire Rate")]
     private float fireRateTime;
-    private float initFireRateTime = 3.0f;
+    //private float initFireRateTime = 3.0f;
 
     [Header("FireBall Properties")]
     private float velocity;

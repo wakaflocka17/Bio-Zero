@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour
 {
     [HideInInspector] public float health;
     Animator animator;
+    public PlayerInfoManager ps;
     // Start is called before the first frame update
     private void Start() 
     {
@@ -27,5 +28,6 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     public void EnemyDeath()
     {
+        ps.setKill(1);
     }
 }

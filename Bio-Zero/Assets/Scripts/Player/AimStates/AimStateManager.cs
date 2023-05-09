@@ -26,8 +26,7 @@ public class AimStateManager : MonoBehaviour
     [SerializeField] public float aimSmoothSpeed = 20;
     [SerializeField] LayerMask aimMask;
     CharacterHealth playerHealth;
-
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -72,5 +71,10 @@ public class AimStateManager : MonoBehaviour
     {
         currentState = state;
         currentState.EnterState(this);
+    }
+
+    public void setMouseSense(float value)
+    {
+        mouseSense = value;
     }
 }
