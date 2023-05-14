@@ -12,6 +12,8 @@ TagManager:
   - Boss
   - Fireball
   - Button
+  - NicknameInsert
+  - DataManager
   layers:
   - Default
   - TransparentFX

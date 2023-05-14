@@ -15005,7 +15005,7 @@ Transform:
   - {fileID: 1022312345}
   - {fileID: 6577853703118793738}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &857120799
 GameObject:
@@ -16009,7 +16009,7 @@ Transform:
   - {fileID: 7575258890966190373}
   - {fileID: 1937569809}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &987239288
 GameObject:
@@ -16864,7 +16864,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &1052825472
 GameObject:
   m_ObjectHideFlags: 0
@@ -16917,6 +16917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be827f43a4f364717bae070fdc242ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingsM: {fileID: 0}
   pauseMenu: {fileID: 645622964}
   saveProgressMenu: {fileID: 1393296803}
   optionsMenu: {fileID: 1977349869}
@@ -19135,7 +19136,7 @@ Transform:
   - {fileID: 1895380402655250230}
   - {fileID: 4273525199396602442}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1335381460
 GameObject:
@@ -25314,7 +25315,7 @@ Transform:
   - {fileID: 828362980}
   - {fileID: 951782376}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1491770623
 GameObject:
@@ -113128,7 +113129,7 @@ Transform:
   - {fileID: 1351658662799529024}
   - {fileID: 1359153584849669830}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1352194982231956026
 Transform:
@@ -115307,12 +115308,10 @@ MonoBehaviour:
   - {fileID: 23397747}
   - {fileID: 435074638}
   playerTarget: {fileID: 6583239770459164956}
-  gravity: -9.81
   bloodSplatter: {fileID: 4384096832149740716}
   handColliders:
   - {fileID: 1899311207353851138}
   - {fileID: 1898304860750689684}
-  playerHealth: {fileID: 6583239770459164962}
 --- !u!114 &1950011305155064514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122974,12 +122973,10 @@ MonoBehaviour:
   - {fileID: 23397747}
   - {fileID: 435074638}
   playerTarget: {fileID: 6583239770459164956}
-  gravity: -9.81
   bloodSplatter: {fileID: 445933166971995287}
   handColliders:
   - {fileID: 4088497134120750676}
   - {fileID: 4087252075490388248}
-  playerHealth: {fileID: 6583239770459164962}
 --- !u!114 &4174205773076387934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124484,12 +124481,10 @@ MonoBehaviour:
   - {fileID: 23397747}
   - {fileID: 435074638}
   playerTarget: {fileID: 6583239770459164956}
-  gravity: -9.81
   bloodSplatter: {fileID: 3168654595428394983}
   handColliders:
   - {fileID: 4276864793298674700}
   - {fileID: 4277186037699112138}
-  playerHealth: {fileID: 6583239770459164962}
 --- !u!114 &4276941798096890862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130499,7 +130494,7 @@ Transform:
   - {fileID: 5645781564411110796}
   - {fileID: 5640527594685232354}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5645703225347397956
 Transform:
@@ -135762,7 +135757,6 @@ MonoBehaviour:
   - {fileID: 987239289}
   - {fileID: 886826252}
   - {fileID: 836861}
-  gravity: -9.81
   bloodSplatter: {fileID: 445933166971995287}
   attackEffect: {fileID: 198076817615631191}
   introEffect: {fileID: 198665422404971792, guid: 3cefa829969829542bf182f16e268213, type: 3}

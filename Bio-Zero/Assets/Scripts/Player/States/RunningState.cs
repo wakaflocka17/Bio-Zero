@@ -1,17 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Player.Info;
 
-public class RunningState : MovementBaseState
+namespace Player.States
 {
-    // Start is called before the first frame update
-    public override void EnterState(PlayerController movement)
+    public class RunningState : MovementBaseState
     {
-        movement.animator.SetBool("isRunning", true);
-    }
+        // Start is called before the first frame update
+        public override void EnterState(PlayerController movement)
+        {
+            movement.animator.SetBool("isRunning", true);
+        }
 
-    public override void UpdateState(PlayerController movement)
-    {
+        public override void UpdateState(PlayerController movement)
+        {
         
+        }
     }
 }

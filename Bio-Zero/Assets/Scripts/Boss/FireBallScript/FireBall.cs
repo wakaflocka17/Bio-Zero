@@ -1,30 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
+using Player.Info;
 using UnityEngine;
 
-public class FireBall : MonoBehaviour
+namespace Boss.FireBallScript
 {
-    
-    [SerializeField] float timeToDestroy;
-    [HideInInspector] public AxeManager axe;
-    // Start is called before the first frame update
-    void Start()
+    public class FireBall : MonoBehaviour
     {
-        Destroy(this.gameObject, timeToDestroy);
-    }
-
-    // Update is called once per frame
-
-    private void OnCollisionEnter(Collision other) {
-        
-        if(other.gameObject.GetComponentInParent<CharacterHealth>())
+    
+        [SerializeField] float timeToDestroy;
+        [HideInInspector] public AxeManager axe;
+        // Start is called before the first frame update
+        void Start()
         {
-            CharacterHealth playerHealth = other.gameObject.GetComponentInParent<CharacterHealth>();
-            playerHealth.TakeDamage(axe.damage);
+            Destroy(this.gameObject, timeToDestroy);
         }
 
-        Destroy(this.gameObject);
-    }
+        // Update is called once per frame
+
+        private void OnCollisionEnter(Collision other) {
+        
+            if(other.gameObject.GetComponentInParent<CharacterHealth>())
+            {
+                CharacterHealth playerHealth = other.gameObject.GetComponentInParent<CharacterHealth>();
+                playerHealth.TakeDamage(axe.damage);
+            }
+
+            Destroy(this.gameObject);
+        }
 
     
+    }
 }

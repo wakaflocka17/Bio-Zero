@@ -13,9 +13,10 @@ THE SOFTWARE.
 */
 
 using System.Linq;
+using Package.PluginMaster.DesignTools.Editor.Common.Scripts;
 using UnityEngine;
 
-namespace PluginMaster
+namespace Package.PluginMaster.DesignTools.Editor.PrefabWorldBuilder.Scripts
 {
     [UnityEditor.InitializeOnLoad]
     public class HDRPDefine

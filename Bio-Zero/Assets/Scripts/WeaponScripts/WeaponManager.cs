@@ -1,4 +1,7 @@
 using Cinemachine;
+using Player.ActionState;
+using Player.AimStates;
+using Player.Info;
 using UnityEngine;
 
 namespace WeaponScripts

@@ -1,8 +1,11 @@
 
-public abstract class AimBaseState 
+namespace Player.AimStates
 {
-    // Start is called before the first frame update
-    public abstract void EnterState(AimStateManager aim);
+    public abstract class AimBaseState 
+    {
+        // Start is called before the first frame update
+        public abstract void EnterState(AimStateManager aim);
 
-    public abstract void UpdateState(AimStateManager aim);
+        public abstract void UpdateState(AimStateManager aim);
+    }
 }

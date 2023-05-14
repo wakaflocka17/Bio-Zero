@@ -1,21 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-
-public class SwitchWeaponState : ActionBaseState
+namespace Player.ActionState
 {
-    // Start is called before the first frame update
-    public override void EnterState(ActionStateManager actions)
+    public class SwitchWeaponState : ActionBaseState
     {
-        actions.rHandAim.weight = 0;
-        actions.lHandIK.weight = 0;
-        actions.animator.SetTrigger("Switch"); 
-    }
+        // Start is called before the first frame update
+        public override void EnterState(ActionStateManager actions)
+        {
+            actions.rHandAim.weight = 0;
+            actions.lHandIK.weight = 0;
+            actions.animator.SetTrigger("Switch"); 
+        }
 
-    public override void UpdateState(ActionStateManager actions)
-    {
+        public override void UpdateState(ActionStateManager actions)
+        {
        
-    } 
+        } 
           
+    }
 } 

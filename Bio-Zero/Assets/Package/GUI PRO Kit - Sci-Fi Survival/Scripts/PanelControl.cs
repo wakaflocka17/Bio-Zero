@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-namespace LayerLab
+namespace Package.GUI_PRO_Kit___Sci_Fi_Survival.Scripts
 {
     public class PanelControl : MonoBehaviour
     {

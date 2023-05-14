@@ -11,10 +11,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+
 using System.Linq;
+using Package.PluginMaster.DesignTools.Editor.Common.Scripts;
 using UnityEngine;
 
-namespace PluginMaster
+namespace Package.PluginMaster.DesignTools.Editor.PrefabWorldBuilder.Scripts
 {
     public class BrushstrokeItem : System.IEquatable<BrushstrokeItem>
     {
@@ -547,7 +549,7 @@ namespace PluginMaster
             {
                 var nextIdx = PaletteManager.selectedBrush.nextItemIndex;
                 if (nextIdx == -1) return;
-                if (PaletteManager.selectedBrush.frequencyMode == PluginMaster.MultibrushSettings.FrecuencyMode.PATTERN
+                if (PaletteManager.selectedBrush.frequencyMode == MultibrushSettings.FrecuencyMode.PATTERN
                     && nextIdx == -2) return;
                 _brushstroke.Clear();
 
@@ -612,9 +614,9 @@ namespace PluginMaster
                         var nextItemIdx = PaletteManager.selectedBrush.nextItemIndex;
                         var position = new Vector3(x, y, 0f);
                         if ((PaletteManager.selectedBrush.frequencyMode
-                            == PluginMaster.MultibrushSettings.FrecuencyMode.RANDOM && nextItemIdx == -1)
+                            == MultibrushSettings.FrecuencyMode.RANDOM && nextItemIdx == -1)
                             || (PaletteManager.selectedBrush.frequencyMode
-                            == PluginMaster.MultibrushSettings.FrecuencyMode.PATTERN && nextItemIdx == -2)) continue;
+                            == MultibrushSettings.FrecuencyMode.PATTERN && nextItemIdx == -2)) continue;
                         else if (nextItemIdx != -1) AddBrushstrokeItem(nextItemIdx, position, Vector3.zero, brushSettings);
                     }
                 }
@@ -624,7 +626,7 @@ namespace PluginMaster
         {
             var nextIdx = PaletteManager.selectedBrush.nextItemIndex;
             if (nextIdx == -1) return;
-            if (PaletteManager.selectedBrush.frequencyMode == PluginMaster.MultibrushSettings.FrecuencyMode.PATTERN
+            if (PaletteManager.selectedBrush.frequencyMode == MultibrushSettings.FrecuencyMode.PATTERN
                 && nextIdx == -2)
             {
                 if (PaletteManager.selectedBrush.patternMachine != null) PaletteManager.selectedBrush.patternMachine.Reset();

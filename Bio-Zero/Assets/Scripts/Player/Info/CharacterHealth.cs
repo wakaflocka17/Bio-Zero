@@ -1,69 +1,72 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterHealth : MonoBehaviour
+namespace Player.Info
 {
-    public Slider sliderHealth;
-    public Slider sliderShield;
-    public float health;
-    public float shield;
-    Animator animator;
-    // Start is called before the first frame update
-    private void Start() 
+    public class CharacterHealth : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
-        health = 100;
-        shield = 0;
-    }
-
-    public float getHealth()
-    {
-        return this.health;
-    }
-
-    public float getShield()
-    {
-        return this.shield;
-    }
-
-    public void TakeDamage(float damage)
-    {
-        animator.SetBool("Hit", true);
-        
-        if(shield > 0)
+        public Slider sliderHealth;
+        public Slider sliderShield;
+        public float health;
+        public float shield;
+        Animator animator;
+        // Start is called before the first frame update
+        private void Start() 
         {
-            shield -= damage;
-            sliderShield.value = shield;
-            
-            if(shield < 0)
+            animator = GetComponent<Animator>();
+            health = 100.0f;
+            shield = 0.0f;
+        }
+
+        public float getHealth()
+        {
+            return this.health;
+        }
+
+        public float getShield()
+        {
+            return this.shield;
+        }
+
+        public void TakeDamage(float damage)
+        {
+            animator.SetBool("Hit", true);
+        
+            if(shield > 0)
             {
-                shield = 0;
-            }
-        }
-        
-        else if(health > 0)
-        {
-            health -= damage;
-            sliderHealth.value = health;
+                shield -= damage;
+                sliderShield.value = shield;
             
-            if(health <= 0)
-                EnemyDeath();
+                if(shield < 0)
+                {
+                    shield = 0;
+                }
+            }
+        
+            else if(health > 0)
+            {
+                health -= damage;
+                sliderHealth.value = health;
+            
+                if(health <= 0)
+                    EnemyDeath();
+            }
+
         }
 
-    }
+        public void DisableHitAnimation()
+        {
+            animator.SetBool("Hit", false);
+        }
 
-    public void DisableHitAnimation()
-    {
-        animator.SetBool("Hit", false);
-    }
+        public void EnemyDeath()
+        {
+            animator.SetBool("isDead", true);
 
-    public void EnemyDeath()
-    {
-        animator.SetBool("isDead", true);
-
-    }
-    public void DisableDeath()
-    {
-        animator.SetBool("isDead", false);
+        }
+        public void DisableDeath()
+        {
+            animator.SetBool("isDead", false);
+        }
     }
 }
