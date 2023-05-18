@@ -7,9 +7,6 @@ namespace DataManager
 {
     public class DataManager : MonoBehaviour
     {
-        [Header("File Storage Config")] 
-        [SerializeField] private string fileName;
-
         [Header("User Input Text")]
         private string nickname = "";
 
@@ -36,7 +33,7 @@ namespace DataManager
 
         private void Start()
         {
-            dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+            dataHandler = new FileDataHandler(Application.persistentDataPath, "");
             dataObjects = FindAllDataObjects();
         }
 

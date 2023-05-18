@@ -7,9 +7,12 @@ namespace HUD.Menu
     public class PauseMenuManager : MonoBehaviour
     {
         private bool buttonPressed;
+        public GameObject buttonSave;
         public SettingsManager settingsM;
         public GameObject pauseMenu;
         public GameObject saveProgressMenu;
+        public GameObject confirmSaveText;
+        public GameObject saveAlertText;
         public GameObject optionsMenu;
         public GameObject buttonPause;
         public GameObject buttonPlay;
@@ -52,6 +55,7 @@ namespace HUD.Menu
             Cursor.lockState = CursorLockMode.None;
         
             /* Not visible HUD Elements */
+            saveAlertText.SetActive(false);
             buttonPause.SetActive(false);
             optionsMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
@@ -103,11 +107,16 @@ namespace HUD.Menu
             pauseMenu.SetActive(false);
             optionsMenu.SetActive(false);
             saveProgressMenu.SetActive(true);
+            buttonSave.SetActive(true);
+            confirmSaveText.SetActive(true);
         }
 
         public void PressedButtonSave()
         {
             DataManager.DataManager.instance.SaveGame();
+            buttonSave.SetActive(false);
+            confirmSaveText.SetActive(false);
+            saveAlertText.SetActive(true);
         }
 
     }

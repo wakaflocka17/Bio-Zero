@@ -1,6 +1,5 @@
 using DataManager;
 using DataManager.Data;
-using Palmmedia.ReportGenerator.Core.Common;
 using TMPro;
 using UnityEngine;
 
@@ -60,10 +59,10 @@ namespace WeaponScripts
             textAmmoInventory.text = extraAmmo.ToString();
         }
 
-        public void AddAmmo(int extraAmmo)
+        public void AddAmmo(int extraAmmoPassed)
         {
-            this.extraAmmo += extraAmmo;
-            textAmmoInventory.text = extraAmmo.ToString();
+            extraAmmo += extraAmmoPassed;
+            textAmmoInventory.text = extraAmmoPassed.ToString();
         }
 
         public void LoadData(InfoGameData infoPlayer)
@@ -74,8 +73,9 @@ namespace WeaponScripts
 
         public void SaveData(ref InfoGameData infoPlayer)
         {
-            infoPlayer.currentammo = textCurrentAmmo.text.ParseLargeInteger();
-            infoPlayer.ammoInventory = textAmmoInventory.text.ParseLargeInteger();
+
+            infoPlayer.currentammo = System.Convert.ToInt32(textCurrentAmmo.text);
+            infoPlayer.ammoInventory = System.Convert.ToInt32(textAmmoInventory.text);
         }
     }
 }
