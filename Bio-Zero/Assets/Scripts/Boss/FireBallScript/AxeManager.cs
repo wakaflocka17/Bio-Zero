@@ -1,28 +1,32 @@
+using Player.Info;
 using UnityEngine;
+using WeaponScripts;
 
-public class AxeManager : MonoBehaviour
+namespace Boss.FireBallScript
 {
-    [Header("Fire Rate")]
-    private float fireRateTime;
-    //private float initFireRateTime = 3.0f;
+    public class AxeManager : MonoBehaviour
+    {
+        [Header("Fire Rate")]
+        private float fireRateTime;
+        //private float initFireRateTime = 3.0f;
 
-    [Header("FireBall Properties")]
-    private float velocity;
-    public float damage;
-    [SerializeField] GameObject fireball;
-    [SerializeField] Transform shootFirePos;
-    [SerializeField] AudioClip fireballAudio;
-    [HideInInspector] public AudioSource audioSource;
-    [HideInInspector] public WeaponAmmo ammo;
+        [Header("FireBall Properties")]
+        private float velocity;
+        public float damage;
+        [SerializeField] GameObject fireball;
+        [SerializeField] Transform shootFirePos;
+        [SerializeField] AudioClip fireballAudio;
+        [HideInInspector] public AudioSource audioSource;
+        [HideInInspector] public WeaponAmmo ammo;
     
-    [Header("Player Properties")]
-    [SerializeField] CharacterHealth playerHealth;
+        [Header("Player Properties")]
+        [SerializeField] CharacterHealth playerHealth;
     
-    [Header("Boss Properties")]
-    BossHealth bossHealth;
+        [Header("Boss Properties")]
+        BossHealth bossHealth;
 
-    // Start is called before the first frame update
-    /* void Start()
+        // Start is called before the first frame update
+        /* void Start()
     {
         velocity = 30.0f;
         damage = 20.0f;
@@ -32,10 +36,11 @@ public class AxeManager : MonoBehaviour
         fireRateTime = initFireRateTime;
     } */
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Update is called once per frame
+        void Update()
+        {
         
-    }
+        }
 
+    }
 }

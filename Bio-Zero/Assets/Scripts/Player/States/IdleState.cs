@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Player.Info;
 
-public class IdleState : MovementBaseState
+namespace Player.States
 {
-    // Start is called before the first frame update
-    public override void EnterState(PlayerController movement)
+    public class IdleState : MovementBaseState
     {
-
-    }
-
-    public override void UpdateState(PlayerController movement)
-    {
-        if(movement.dir.magnitude > 0.1f)
+        // Start is called before the first frame update
+        public override void EnterState(PlayerController movement)
         {
-            movement.SwitchState(movement.Run);
+
+        }
+
+        public override void UpdateState(PlayerController movement)
+        {
+            if(movement.dir.magnitude > 0.1f)
+            {
+                movement.SwitchState(movement.Run);
+            }
         }
     }
 }

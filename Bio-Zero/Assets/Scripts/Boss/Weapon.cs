@@ -1,44 +1,28 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using Player.Info;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class Weapon : MonoBehaviour
+namespace Boss
 {
-    private int damageFirstPhase;
-    private int damageSecondPhase;
+    public class Weapon : MonoBehaviour
+    {
+        private int damage;
+        
 
-    public BossAIMovement boss;
-    public CharacterHealth playerHealth;
+        public BossAIMovement boss;
+        public BossHealth bossHealth;
     
-    public void Start()
-    {
-        damageFirstPhase = 10;
-        damageSecondPhase = 20;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (playerHealth.getHealth() > 0) //If player is alive
+        public void Start()
         {
-            if (other.CompareTag("Player")) //If Object Collider is a player
-            {
-                switch (boss.getPhase()) //Switch for different damage to take
-                {
-                    case 1: playerHealth.TakeDamage(damageFirstPhase);
-                        break;
-                    
-                    case 2: playerHealth.TakeDamage(damageSecondPhase);
-                        break;
-                }
-            }
+            damage = 10;
         }
 
-        else
+        private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Stronzo sei morto!");
+            if (other.gameObject.GetComponent<CharacterHealth>()) //If Object Collider is a player
+            {
+                CharacterHealth characterHealth = other.gameObject.GetComponent<CharacterHealth>();
+                characterHealth.TakeDamage(damage);
+            }
         }
     }
 }

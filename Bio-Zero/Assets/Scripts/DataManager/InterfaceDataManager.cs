@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using DataManager.Data;
 
-public interface InterfaceDataManager
+namespace DataManager
 {
-    void LoadData(InfoGameData infoPlayer);
-    void SaveData(ref InfoGameData infoPlayer);
+    public interface InterfaceDataManager
+    {
+        void LoadData(InfoGameData infoPlayer);
+        void SaveData(ref InfoGameData infoPlayer);
+    }
 }

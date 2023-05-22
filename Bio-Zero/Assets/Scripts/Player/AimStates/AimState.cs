@@ -1,19 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AimState : AimBaseState
+namespace Player.AimStates
 {
-    // Start is called before the first frame update
-    public override void EnterState(AimStateManager aim)
+    public class AimState : AimBaseState
     {
-        aim.animator.SetBool("isAiming", true);
-        aim.currentFov = aim.adsFov;
-    }
+        // Start is called before the first frame update
+        public override void EnterState(AimStateManager aim)
+        {
+            aim.animator.SetBool("isAiming", true);
+            aim.currentFov = aim.adsFov;
+        }
 
-    public override void UpdateState(AimStateManager aim)
-    {
-        if(Input.GetKeyUp(KeyCode.Mouse1)) 
-            aim.SwitchState(aim.Hip);
+        public override void UpdateState(AimStateManager aim)
+        {
+            if(Input.GetKeyUp(KeyCode.Mouse1)) 
+                aim.SwitchState(aim.Hip);
+        }
     }
 }

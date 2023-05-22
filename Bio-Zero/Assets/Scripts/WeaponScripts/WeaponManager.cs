@@ -1,4 +1,7 @@
 using Cinemachine;
+using Player.ActionState;
+using Player.AimStates;
+using Player.Info;
 using UnityEngine;
 
 namespace WeaponScripts
@@ -134,10 +137,11 @@ namespace WeaponScripts
             ammo.textCurrentAmmo.text = ammo.currentAmmo.ToString(); //Ammo TextProUGui
             TriggerMuzzleFlash();
             barrelPos.LookAt(aim.aimPos);
-            audioSource.PlayOneShot(gunShot);
+            
         
             for(int i = 0; i < bulletsPerShot; i++)
             {
+                audioSource.PlayOneShot(gunShot);
                 GameObject currentBullet = Instantiate(bullet, barrelPos.position, barrelPos.rotation);
 
                 Bullet bulletScript = currentBullet.GetComponent<Bullet>();
@@ -165,8 +169,14 @@ namespace WeaponScripts
             //Make Rigidbody kinematic and BoxCollider a trigger
             rb.isKinematic = true;
             coll.isTrigger = false;
-            gameObject.SetActive(false);
+            if(actions.weapons.Count == 0)
+            {
+                gameObject.SetActive(true);
+            }
+            else
+                gameObject.SetActive(false);
             actions.weapons.Add(this);
+            
         }
 
         public void Drop()

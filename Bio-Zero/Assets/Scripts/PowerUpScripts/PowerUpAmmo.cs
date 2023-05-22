@@ -1,28 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using WeaponScripts;
 
-public class PowerUpAmmo : MonoBehaviour
+namespace PowerUpScripts
 {
-     private int extraAmmo = 180;
-    // Start is called before the first frame update
-    void Start()
+    public class PowerUpAmmo : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other) {
-        if(other.GetComponent<WeaponAmmo>())
+        private int extraAmmo = 180;
+        // Start is called before the first frame update
+        void Start()
         {
-            WeaponAmmo ammo = other.GetComponent<WeaponAmmo>();
-            ammo.AddAmmo(extraAmmo);
-            this.gameObject.SetActive(false);
+        
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+        
+        }
+
+        private void OnTriggerEnter(Collider other) {
+            if(other.GetComponent<WeaponAmmo>())
+            {
+                WeaponAmmo ammo = other.GetComponent<WeaponAmmo>();
+                ammo.AddAmmo(extraAmmo);
+                this.gameObject.SetActive(false);
+            }
         }
     }
 }

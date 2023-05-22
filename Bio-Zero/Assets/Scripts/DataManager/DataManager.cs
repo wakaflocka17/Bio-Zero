@@ -1,84 +1,97 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using System.Linq;
+using DataManager.Data;
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+namespace DataManager
 {
-    [Header("File Storage Config")] 
-    [SerializeField] private string fileName;
+    public class DataManager : MonoBehaviour
+    {
+        [Header("File Storage Config")] 
+        [SerializeField] private string fileName;
 
-    [Header("User Input Text")] 
-    [SerializeField] public GameObject textNickname;
-    private string nickname;
+        [Header("User Input Text")]
+        private string nickname = "";
 
-    private InfoGameData infoPlayer;
-    private List<InterfaceDataManager> dataObjects;
-    private FileDataHandler dataHandler;
+        private InfoGameData infoPlayer;
+        private List<InterfaceDataManager> dataObjects;
+        private FileDataHandler dataHandler;
     
-    public static DataManager instance { get; private set; }
+        public static DataManager instance { get; private set; }
     
-    private void Awake()
-    {
-        if (instance != null && instance != this)
+        private void Awake()
         {
-            Destroy(this);
-        }
+            if (instance != null && instance != this)
+            {
+                Destroy(this);
+            }
 
-        else
-        {
-            instance = this; 
-        }
+            else
+            {
+                instance = this; 
+            }
         
-        DontDestroyOnLoad(this);
-    }
+            DontDestroyOnLoad(this);
+        }
 
-    private void Start()
-    {
-        nickname = textNickname.ToString();
-        dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
-        dataObjects = FindAllDataObjects();
-        LoadGame(nickname);
-    }
+        private void Start()
+        {
+            dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+            dataObjects = FindAllDataObjects();
+        }
 
-    public void NewGame(string nickname)
-    {
-        infoPlayer = new InfoGameData(nickname);
-    }
+        public void NewGame(string nicknamePlayer)
+        {
+            infoPlayer = new InfoGameData(nicknamePlayer);
+        }
     
-    public void LoadGame(string nickname)
-    {
-        infoPlayer = dataHandler.Load();
-        
-        if (infoPlayer == null)
+        public void LoadGame(string nicknamePlayer)
         {
-            NewGame(nickname);
+            infoPlayer = dataHandler.Load();
+            nickname = nicknamePlayer;
+
+            if (infoPlayer == null)
+            {
+                NewGame(nicknamePlayer);
+                infoPlayer.nickname = nicknamePlayer;
+            }
+            
+            else
+            {
+                infoPlayer.nickname = nicknamePlayer;
+            }
+
+            foreach (InterfaceDataManager singleDataObject in dataObjects)
+            {
+                singleDataObject.LoadData(infoPlayer);
+            }
         }
 
-        foreach (InterfaceDataManager singleDataObject in dataObjects)
+        public void SaveGame()
         {
-            singleDataObject.LoadData(infoPlayer);
-        }
-    }
+            dataObjects = FindAllDataObjects();
+            
+            foreach (InterfaceDataManager singleDataObject in dataObjects)
+            {
+                singleDataObject.SaveData(ref infoPlayer);
+            }
+            
+            dataHandler.Save(infoPlayer);
 
-    public void SaveGame()
-    {
-        foreach (InterfaceDataManager singleDataObject in dataObjects)
+        }
+
+        private List<InterfaceDataManager> FindAllDataObjects()
         {
-            singleDataObject.SaveData(ref infoPlayer);
+            IEnumerable<InterfaceDataManager> dataObjectsEnumerable = FindObjectsOfType<MonoBehaviour>()
+                .OfType<InterfaceDataManager>();
+
+            return new List<InterfaceDataManager>(dataObjectsEnumerable);
         }
-        
-        dataHandler.Save(infoPlayer);
-        
-    }
 
-    private List<InterfaceDataManager> FindAllDataObjects()
-    {
-        IEnumerable<InterfaceDataManager> dataObjectsEnumerable = FindObjectsOfType<MonoBehaviour>()
-            .OfType<InterfaceDataManager>();
+        public string GetNickname()
+        {
+            return nickname;
+        }
 
-        return new List<InterfaceDataManager>(dataObjectsEnumerable);
     }
-    
 }

@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class ModularTerrainCameraControl : MonoBehaviour {
+namespace Package.Low_Poly_Modular_Terrain_Pack.Bonus_Assets.Scripts
+{
+	public class ModularTerrainCameraControl : MonoBehaviour {
 
-	//Range for min/max values of variable
-	[Range(-100f, 100f)]
-	public float cameraMoveSpeed_x, cameraMoveSpeed_y, cameraMoveSpeed_z;
+		//Range for min/max values of variable
+		[Range(-100f, 100f)]
+		public float cameraMoveSpeed_x, cameraMoveSpeed_y, cameraMoveSpeed_z;
 
-	// Camera Movement
-	void Update () {
-		gameObject.transform.Translate (cameraMoveSpeed_x * Time.deltaTime, cameraMoveSpeed_y * Time.deltaTime, cameraMoveSpeed_z * Time.deltaTime);
+		// Camera Movement
+		void Update () {
+			gameObject.transform.Translate (cameraMoveSpeed_x * Time.deltaTime, cameraMoveSpeed_y * Time.deltaTime, cameraMoveSpeed_z * Time.deltaTime);
+		}
 	}
 }

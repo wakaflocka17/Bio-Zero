@@ -1,33 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
+using Player.Info;
 using UnityEngine;
+using System.Collections.Generic;
 
-public class EnemyHealth : MonoBehaviour
+namespace Enemy
 {
-    [HideInInspector] public float health;
-    Animator animator;
-    public PlayerInfoManager ps;
-    // Start is called before the first frame update
-    private void Start() 
+    public class EnemyHealth : MonoBehaviour
     {
-        health = 100;
-        animator= GetComponent<Animator>(); 
-    }
-
-    public void TakeDamage(float damage)
-    {
-        if(health > 0)
+        [SerializeField] public List<GameObject> powerUps;
+        private int killCounter;
+        [HideInInspector] public float health;
+        Animator animator;
+        [SerializeField] private Transform powerUpPosition;
+        public PlayerInfoManager ps;
+        private GameObject currentPowerUp;
+        // Start is called before the first frame update
+        private void Start() 
         {
-            health -= damage;
-            if(health <= 0)
-                EnemyDeath();
+            health = 100;
+            animator= GetComponent<Animator>(); 
         }
-        
-    }
 
-    // Update is called once per frame
-    public void EnemyDeath()
-    {
-        ps.setKill(1);
+
+        public void TakeDamage(float damage)
+        {
+            if(health > 0)
+            {
+                health -= damage;
+                if(health <= 0)
+                    EnemyDeath();
+            }
+        
+        }
+
+        // Update is called once per frame
+        public void EnemyDeath()
+        {
+            int randInd = Random.Range(0,100);
+            //GameObject powerUp = Instantiate(fireBall, spherePos.position, spherePos.rotation);
+            if(randInd < 80)
+            {
+                int randomIndex = Random.Range(0, powerUps.Count);
+                currentPowerUp = powerUps[randomIndex];
+                Instantiate(currentPowerUp, powerUpPosition.position, powerUpPosition.rotation);
+            }
+            killCounter++;
+            ps.setKill(1);
+        }
     }
 }

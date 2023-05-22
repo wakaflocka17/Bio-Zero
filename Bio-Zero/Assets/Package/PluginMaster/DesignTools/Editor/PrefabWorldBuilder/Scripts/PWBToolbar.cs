@@ -11,10 +11,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+
 using UnityEngine;
 
-
-namespace PluginMaster
+namespace Package.PluginMaster.DesignTools.Editor.PrefabWorldBuilder.Scripts
 {
     public class PWBToolbar : UnityEditor.EditorWindow
     {
@@ -187,19 +187,19 @@ namespace PluginMaster
 #if UNITY_2019_1_OR_NEWER
         private void UpdateShortcutsTooltips()
         {
-            Shortcuts.UpdateTooltipShortcut(_pinIcon, "Pin", Shortcuts.PWB_TOGGLE_PIN_SHORTCUT_ID);
-            Shortcuts.UpdateTooltipShortcut(_brushIcon, "Brush", Shortcuts.PWB_TOGGLE_BRUSH_SHORTCUT_ID);
-            Shortcuts.UpdateTooltipShortcut(_eraserIcon, "Eraser", Shortcuts.PWB_TOGGLE_ERASER_SHORTCUT_ID);
-            Shortcuts.UpdateTooltipShortcut(_physicsIcon, "Gravity Brush", Shortcuts.PWB_TOGGLE_GRAVITY_SHORTCUT_ID);
-            Shortcuts.UpdateTooltipShortcut(_extrudeIcon, "Extrude", Shortcuts.PWB_TOGGLE_EXTRUDE_SHORTCUT_ID);
-            Shortcuts.UpdateTooltipShortcut(_lineIcon, "Line", Shortcuts.PWB_TOGGLE_LINE_SHORTCUT_ID);
-            Shortcuts.UpdateTooltipShortcut(_shapeIcon, "Shape", Shortcuts.PWB_TOGGLE_SHAPE_SHORTCUT_ID);
-            Shortcuts.UpdateTooltipShortcut(_tilingIcon, "Tiling", Shortcuts.PWB_TOGGLE_TILING_SHORTCUT_ID);
-            Shortcuts.UpdateTooltipShortcut(_selectionIcon, "Selection", Shortcuts.PWB_TOGGLE_SELECTION_SHORTCUT_ID);
-            Shortcuts.UpdateTooltipShortcut(_mirrorIcon, "Mirror", Shortcuts.PWB_TOGGLE_MIRROR_SHORTCUT_ID);
-            Shortcuts.UpdateTooltipShortcut(_lockGridIcon, "Lock the grid origin in place",
+            Common.Scripts.Shortcuts.UpdateTooltipShortcut(_pinIcon, "Pin", Shortcuts.PWB_TOGGLE_PIN_SHORTCUT_ID);
+            Common.Scripts.Shortcuts.UpdateTooltipShortcut(_brushIcon, "Brush", Shortcuts.PWB_TOGGLE_BRUSH_SHORTCUT_ID);
+            Common.Scripts.Shortcuts.UpdateTooltipShortcut(_eraserIcon, "Eraser", Shortcuts.PWB_TOGGLE_ERASER_SHORTCUT_ID);
+            Common.Scripts.Shortcuts.UpdateTooltipShortcut(_physicsIcon, "Gravity Brush", Shortcuts.PWB_TOGGLE_GRAVITY_SHORTCUT_ID);
+            Common.Scripts.Shortcuts.UpdateTooltipShortcut(_extrudeIcon, "Extrude", Shortcuts.PWB_TOGGLE_EXTRUDE_SHORTCUT_ID);
+            Common.Scripts.Shortcuts.UpdateTooltipShortcut(_lineIcon, "Line", Shortcuts.PWB_TOGGLE_LINE_SHORTCUT_ID);
+            Common.Scripts.Shortcuts.UpdateTooltipShortcut(_shapeIcon, "Shape", Shortcuts.PWB_TOGGLE_SHAPE_SHORTCUT_ID);
+            Common.Scripts.Shortcuts.UpdateTooltipShortcut(_tilingIcon, "Tiling", Shortcuts.PWB_TOGGLE_TILING_SHORTCUT_ID);
+            Common.Scripts.Shortcuts.UpdateTooltipShortcut(_selectionIcon, "Selection", Shortcuts.PWB_TOGGLE_SELECTION_SHORTCUT_ID);
+            Common.Scripts.Shortcuts.UpdateTooltipShortcut(_mirrorIcon, "Mirror", Shortcuts.PWB_TOGGLE_MIRROR_SHORTCUT_ID);
+            Common.Scripts.Shortcuts.UpdateTooltipShortcut(_lockGridIcon, "Lock the grid origin in place",
                 Shortcuts.PWB_TOGGLE_GRID_LOCK_SHORTCUT_ID);
-            Shortcuts.UpdateTooltipShortcut(_unlockGridIcon, "Unlock the grid origin",
+            Common.Scripts.Shortcuts.UpdateTooltipShortcut(_unlockGridIcon, "Unlock the grid origin",
                 Shortcuts.PWB_TOGGLE_GRID_LOCK_SHORTCUT_ID);
         }
 #endif

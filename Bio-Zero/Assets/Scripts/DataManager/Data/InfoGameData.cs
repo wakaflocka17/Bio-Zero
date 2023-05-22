@@ -1,44 +1,41 @@
 using UnityEngine;
 
-[System.Serializable]
-public class InfoGameData
+namespace DataManager.Data
 {
-    public struct TimePlayer
+    [System.Serializable]
+    public class InfoGameData
     {
-        public int hours;
-        public int minutes;
-        public int seconds;
-    }
-
-    public struct WeaponAmmo
-    {
-        public int currentAmmo;
+        public string nickname;
+        public int numberKill;
+        public int numberLevel;
+        public int currentammo;
         public int ammoInventory;
-    }
+        public Vector3 coordPlayer;
+        public int hours;
+        public int seconds;
+        public int minutes;
+        public float healthPlayer;
+        public float shieldPlayer;
     
-    public string nickname;
-    public int numberKill;
-    public int numberLevel;
-    public WeaponAmmo ammoPlayer;
-    public Vector3 coordPlayer;
-    public TimePlayer timePlayer;
-    public CharacterHealth statsLifePlayer;
-    
-    //The default (and empty) constructor
-    //will be used when there is no data to load
-    public InfoGameData(string nickname)
-    {
-        this.nickname = nickname;
-        numberLevel = 1;
-        numberKill = 0;
-        ammoPlayer.ammoInventory = 180;
-        ammoPlayer.currentAmmo = 30;
+        //The default (and empty) constructor
+        //will be used when there is no data to load
+        public InfoGameData(string nickname)
+        {
+            this.nickname = nickname;
+            numberLevel = 1;
+            numberKill = 0;
+            ammoInventory = 120;
+            currentammo = 30;
         
-        coordPlayer = Vector3.zero;
+            coordPlayer = Vector3.zero;
         
-        timePlayer.hours = 0;
-        timePlayer.minutes = 0;
-        timePlayer.seconds = 0;
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
+
+            healthPlayer = 100.0f;
+            shieldPlayer = 0.0f;
+        }
+        
     }
-    
 }

@@ -1,46 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
+using Player.States;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+namespace Player.Info
 {
+  public class PlayerController : MonoBehaviour
+  {
     // Start is called before the first frame update
-   CharacterController controller;
+    CharacterController controller;
 
-   public float moveSpeed = 3;
-   [HideInInspector] public Vector3 dir;
-   float hzInput, vInput;
+    public float moveSpeed = 3;
+    [HideInInspector] public Vector3 dir;
+    float hzInput, vInput;
 
-   [SerializeField] float gravity = -9.81f; 
-   Vector3 velocity;
+    [SerializeField] float gravity = -9.81f; 
+    Vector3 velocity;
 
-   MovementBaseState currentState;
+    MovementBaseState currentState;
 
-   public IdleState Idle = new IdleState();
-   public RunningState Run = new RunningState();
+    public IdleState Idle = new IdleState();
+    public RunningState Run = new RunningState();
 
-   [HideInInspector] public Animator animator;
+    [HideInInspector] public Animator animator;
 
-   CharacterHealth playerHealth;
-   private PlayerInfoManager playerInfo;
+    CharacterHealth playerHealth;
+    private PlayerInfoManager playerInfo;
 
-   private void Start()
-   {
+    private void Start()
+    {
   
-     playerInfo = GetComponent<PlayerInfoManager>();
-     playerHealth = GetComponent<CharacterHealth>();
-     animator = GetComponent<Animator>();
-     controller = GetComponent<CharacterController>();
-     SwitchState(Idle);
+      playerInfo = GetComponent<PlayerInfoManager>();
+      playerHealth = GetComponent<CharacterHealth>();
+      animator = GetComponent<Animator>();
+      controller = GetComponent<CharacterController>();
+      SwitchState(Idle);
      
      
-   }
+    }
    
-   private void Update() 
-   {
-     if(playerHealth.health > 0)
-     {    
+    private void Update() 
+    {
+      if(playerHealth.health > 0)
+      {    
         GetDirection();
         Gravity();
 
@@ -48,37 +48,38 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("vInput", vInput);
         
         currentState.UpdateState(this);
-     }
-   }
+      }
+    }
 
-   private void GetDirection()
-   {
-     hzInput = Input.GetAxis("Horizontal");
-     vInput = Input.GetAxis("Vertical");
+    private void GetDirection()
+    {
+      hzInput = Input.GetAxis("Horizontal");
+      vInput = Input.GetAxis("Vertical");
 
-     dir = transform.forward * vInput + transform.right * hzInput;
+      dir = transform.forward * vInput + transform.right * hzInput;
      
-     controller.Move(dir.normalized * moveSpeed * Time.deltaTime);
-   }
+      controller.Move(dir.normalized * moveSpeed * Time.deltaTime);
+    }
 
-   private void Gravity(){
-     if(!controller.isGrounded)
-     {
-          velocity.y += gravity * Time.deltaTime;
-     }
-     else if(velocity.y < 0)
-     {
-          velocity.y = -2;
-     }
+    private void Gravity(){
+      if(!controller.isGrounded)
+      {
+        velocity.y += gravity * Time.deltaTime;
+      }
+      else if(velocity.y < 0)
+      {
+        velocity.y = -2;
+      }
 
-     controller.Move(velocity * Time.deltaTime);
-   }
+      controller.Move(velocity * Time.deltaTime);
+    }
 
-   public void SwitchState(MovementBaseState state)
-   {
-     currentState = state;
-     currentState.EnterState(this);
+    public void SwitchState(MovementBaseState state)
+    {
+      currentState = state;
+      currentState.EnterState(this);
 
-   }
+    }
   
+  }
 }

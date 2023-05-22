@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RagdollManager : MonoBehaviour
+namespace WeaponScripts
 {
-    Rigidbody[] rbs;
-    // Start is called before the first frame update
-    void Start()
+    public class RagdollManager : MonoBehaviour
     {
-        rbs = GetComponentsInChildren<Rigidbody>();
-        foreach (Rigidbody rb in rbs) rb.isKinematic = true;
-    }
+        Rigidbody[] rbs;
+        // Start is called before the first frame update
+        void Start()
+        {
+            rbs = GetComponentsInChildren<Rigidbody>();
+            foreach (Rigidbody rb in rbs) rb.isKinematic = true;
+        }
 
-    // Update is called once per frame
-    public void TriggerRagdoll()
-    {
-        foreach(Rigidbody rb in rbs) rb.isKinematic = false;
+        // Update is called once per frame
+        public void TriggerRagdoll()
+        {
+            foreach(Rigidbody rb in rbs) rb.isKinematic = false;
+        }
     }
 }
