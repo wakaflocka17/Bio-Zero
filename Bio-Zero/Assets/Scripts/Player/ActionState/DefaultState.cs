@@ -20,7 +20,7 @@ namespace Player.ActionState
             //lo switch arriva con 1
             actions.rHandAim.weight = Mathf.Lerp(actions.rHandAim.weight, 1, 5 * Time.deltaTime);
             actions.lHandIK.weight = Mathf.Lerp(actions.lHandIK.weight, 1, 5 * Time.deltaTime);
-
+            
             if(Input.GetKeyDown(KeyCode.R) && CanReload(actions))
             {
                 Debug.Log("ricarica");

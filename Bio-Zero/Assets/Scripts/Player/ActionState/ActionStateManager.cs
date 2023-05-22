@@ -10,6 +10,7 @@ namespace Player.ActionState
         [HideInInspector] public ActionBaseState currentState;
         public ReloadState Reload = new ReloadState();
         public DefaultState Default = new DefaultState();
+       
 
         [SerializeField] public List<WeaponManager> weapons;
         [HideInInspector] public WeaponManager currentWeapon;
@@ -22,6 +23,7 @@ namespace Player.ActionState
         public TwoBoneIKConstraint lHandIK;
 
         [HideInInspector] public int weaponIndex = 0;
+        public int componentIndex = 0;
 
         // Start is called before the first frame update
         void Start()
@@ -46,7 +48,19 @@ namespace Player.ActionState
                                                 || Input.GetKeyDown(KeyCode.Alpha3)) {
                 WeaponSwitched();
             }
-            //EjectWeapon();
+            if(weapons.Count == 0)
+            {
+                rHandAim.weight = 0;
+                lHandIK.weight = 0;
+                animator.SetBool("isArmed", false);
+               
+            }
+            else
+            {
+                animator.SetBool("isArmed", true);
+                
+            }
+           
             DropWeapon();
             currentState.UpdateState(this);
         }

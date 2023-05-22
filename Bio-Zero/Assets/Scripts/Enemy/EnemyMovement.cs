@@ -9,7 +9,6 @@ namespace Enemy
         public Transform[] pathEnemy; //Transform path for Enemy
         private int pathEnemyIndex;
         private int index;
-        [SerializeField] private GameObject[] componentElicopter;
         private Vector3 actualCpTarget;
 
         private NavMeshAgent enemy; //Enemy object
@@ -64,7 +63,6 @@ namespace Enemy
             else
             {
                 enemyState.SetBool("isDead", true);
-                
             }
         
         }

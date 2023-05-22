@@ -33,10 +33,7 @@ public class SettingsManager : MonoBehaviour
         sliderSounds.value = 100.0f;
         
         buttonOnFS.SetActive(true);
-        buttonOnFS.GetComponent<Toggle>().isOn = true;
         buttonOffFS.SetActive(false);
-        buttonOffFS.GetComponent<Toggle>().isOn = false;
-        Screen.fullScreen = true;
         flagFS = true;
     }
 
@@ -86,10 +83,10 @@ public class SettingsManager : MonoBehaviour
     {
         if (flagFS)
         {
-            flagFS = false;
             Screen.fullScreen = true;
             buttonOnFS.SetActive(false);
             buttonOffFS.SetActive(true);
+            flagFS = false;
         }
 
         else

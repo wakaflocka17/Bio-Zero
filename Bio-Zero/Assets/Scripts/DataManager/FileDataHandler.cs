@@ -47,7 +47,6 @@ namespace DataManager
 
         public void Save(InfoGameData infoPlayer)
         {
-            fileName = infoPlayer.nickname + " - " + "CallOfGoofy.game";
             //Path.Combine is equivalent to concatenate a "/" between directoryPath and fileName
             string fullPath = Path.Combine(directoryPath, fileName);
 
@@ -58,11 +57,11 @@ namespace DataManager
                 //Serialize the game data object into File Json
                 string dataPlayerStore = JsonUtility.ToJson(infoPlayer, true);
             
-                using (FileStream stream = new FileStream(fullPath, FileMode.OpenOrCreate))
+                using (FileStream stream = new FileStream(fullPath, FileMode.Create))
                 {
                     using (StreamWriter writer = new StreamWriter(stream))
                     {
-                        writer.WriteLine(dataPlayerStore);
+                        writer.Write(dataPlayerStore);
                     }
                 }
             }

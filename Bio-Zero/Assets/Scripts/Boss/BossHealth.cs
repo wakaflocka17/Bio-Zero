@@ -8,12 +8,10 @@ namespace Boss
         private Animator bossAnimator;
 
         private int nPhase; //Start from one to three
-        private bool firstAccess;
 
         // Start is called before the first frame update
         private void Start()
         {
-            firstAccess = false;
             nPhase = 1;
             health = 50;
             bossAnimator = GetComponent<Animator>(); 
@@ -34,24 +32,15 @@ namespace Boss
                             nPhase++;
                         }
                     }
-                
                     break;
-            
                 case 2:
 
-                    if (firstAccess == true)
-                    {
-                        firstAccess = false;
-                        health = 100;
-                    }
-                
                     if(health > 0)
                     {
                         health -= damage;
                         if(health <= 0)
                             BossDeath();
                     }
-                
                     break;
             }
 
@@ -60,8 +49,9 @@ namespace Boss
         // Second stage for setup boss power up
         public void bossPowerUp()
         {
-            bossAnimator.SetBool("isLevelUp", true);
-            firstAccess = true;
+            health = 100;
+            bossAnimator.SetTrigger("isLevelUp");
+            
         }
     
         // I've used this function for setup boss dead

@@ -54,6 +54,7 @@ namespace Player.Info
         public void setTimer(float timerToPass)
         {
             gameplayTimer = TimeSpan.FromSeconds(timerToPass);
+
             timer.text = $"{gameplayTimer.Hours:D2}:{gameplayTimer.Minutes:D2}.<size=42.21>{gameplayTimer.Seconds:D2}";
         }
 

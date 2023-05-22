@@ -1,6 +1,7 @@
 using Player.Info;
 using UnityEngine;
 using UnityEngine.AI;
+using Boss.FireBallScript;
 
 namespace Boss
 {
@@ -20,13 +21,17 @@ namespace Boss
         private float initWaitTime = 05.0f;
     
         //Variable for first phase Boss
-        private float rangeAlert = 10.0f; //Range for set true the Alert flag for first stage
-        private float rangeAttack = 03.0f; //Range for set true the Attack flag
+        private float rangeAlert = 0.0f; //Range for set true the Alert flag for first stage
+        private float rangeAttack = 0.0f; //Range for set true the Attack flag
 
         private float fireBallTime;
         private float initFireBallTime = 03.0f;
 
-        private int nPhase;
+        [SerializeField] private GameObject stick;
+        [SerializeField] private Transform spherePos;
+        [SerializeField] private GameObject fireBall;
+        [SerializeField] float fireBallVelocity = 5;
+
     
         //Variable for second phase Boss
     
@@ -53,41 +58,34 @@ namespace Boss
             waitTime = initWaitTime;
             fireBallTime = initFireBallTime;
             pathBossIndex = Random.Range(0, pathBoss.Length);
-            nPhase = 1;
         }
 
         // Update is called once per frame
         void Update()
         {
-
-            ResetAnimatorState(bossState);
-
             switch (bossHealth.getNPhase())
             {
                 //First stage of Boss
                 case 1:
+                    rangeAttack = 3.0f;
+                    rangeAlert = 10.0f;
                     firstPhase();
                     break;
             
                 //Second stage of Boss
                 case 2:
-                    nPhase++;
+                    rangeAttack = 10.0f;
+                    rangeAlert = 20.0f;
                     secondPhase();
                     break;
             }
 
-        }
-
-        public int getPhase()
-        {
-            return this.nPhase;
         }
     
         private void firstPhase()
         {
             if (bossHealth.health > 0)
             {
-
                 float distance = Vector3.Distance(playerTarget.transform.position, transform.position);
 
                 if (distance > rangeAlert)
@@ -99,38 +97,28 @@ namespace Boss
                     FollowPlayer();
                 }
             }
-
-            else
-            {
-                bossHealth.bossPowerUp();
-            }
         }
 
         private void secondPhase()
         {
+            stick.SetActive(false);
             //If Boss is alive
             if (bossHealth.health > 0)
             {
-
+                //distance between boss and player
                 float distance = Vector3.Distance(playerTarget.transform.position, transform.position);
 
                 // Setup the struct fighting, attack and follower for Boss Second Stage
-            
-                if (fireBallTime <= 0)
+                if (distance > rangeAlert)
                 {
-                    //Config the action for fireBall movement and hit player
-                    fireBallTime = initFireBallTime;
+                    Debug.Log("diocane1");
+                    IdleStateMode();
                 }
                 else
                 {
-                    fireBallTime -= Time.deltaTime;
+                    Debug.Log("porcodio2");
+                    FollowPlayer();
                 }
-            
-            }
-
-            else
-            {
-                bossHealth.BossDeath();
             }
         }
 
@@ -152,39 +140,56 @@ namespace Boss
         private void FollowPlayer()
         {
             //Set distance offset between enemy ai and player
-            distanceEnemyPlayer = Vector3.Distance(transform.position, playerTarget.transform.position);
+            float distance = Vector3.Distance(playerTarget.transform.position, transform.position);
         
-            if (distanceEnemyPlayer < rangeAttack && playerHealth.health > 0)
+            if (distance <= rangeAttack && playerHealth.health > 0)
             { //Distance between Enemy and Player is lower than 1
                 AttackState();
             }
 
-            else if (distanceEnemyPlayer < rangeAlert && playerHealth.health > 0)
+            else if (distance <= rangeAlert && playerHealth.health > 0)
             { //Distance between Enemy and Player is lower than 10
                 AlertState();
             }
         }
 
-        public void ResetAnimatorState(Animator animator)
-        {
-            //Reset for First Stage State
-            animator.SetBool("isAlert", false);
-            animator.SetBool("isAttack", false);
-        
-            //Reset for Second Stage State
-            animator.SetBool("isAlert", false);
-            animator.SetBool("isAttack", false);
-        }
-
         void AlertState()
         {
-            bossState.SetBool("isAlert", true);
+            if(bossHealth.getNPhase() == 1)
+            {
+                bossState.SetBool("isAlert", true);
+            }
+            else 
+            { 
+                bossState.SetBool("isAlert2", true);
+            }
+            
             boss.SetDestination(playerTarget.transform.position);
         }
 
         void AttackState()
         {
-            bossState.SetBool("isAttack", true);
+            if(bossHealth.getNPhase() == 1)
+                bossState.SetBool("isAttack", true);
+            else 
+                bossState.SetTrigger("isShooting");
+        }
+
+        //called as an event
+        private void Shoot()
+        { 
+            GameObject currentFireBall = Instantiate(fireBall, spherePos.position, spherePos.rotation);
+            
+            Rigidbody rigidbody = currentFireBall.GetComponent<Rigidbody>();
+            rigidbody.AddForce(spherePos.forward * fireBallVelocity, ForceMode.Impulse);
+
+           
+
+        }
+
+        void stopAttack()
+        {
+            bossState.SetBool("isAttack", false);
         }
 
         void ShowBlood()

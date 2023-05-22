@@ -5,38 +5,23 @@ namespace Boss
 {
     public class Weapon : MonoBehaviour
     {
-        private int damageFirstPhase;
-        private int damageSecondPhase;
+        private int damage;
+        
 
         public BossAIMovement boss;
-        public CharacterHealth playerHealth;
+        public BossHealth bossHealth;
     
         public void Start()
         {
-            damageFirstPhase = 10;
-            damageSecondPhase = 20;
+            damage = 10;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (playerHealth.getHealth() > 0) //If player is alive
+            if (other.gameObject.GetComponent<CharacterHealth>()) //If Object Collider is a player
             {
-                if (other.CompareTag("Player")) //If Object Collider is a player
-                {
-                    switch (boss.getPhase()) //Switch for different damage to take
-                    {
-                        case 1: playerHealth.TakeDamage(damageFirstPhase);
-                            break;
-                    
-                        case 2: playerHealth.TakeDamage(damageSecondPhase);
-                            break;
-                    }
-                }
-            }
-
-            else
-            {
-                Debug.Log("Stronzo sei morto!");
+                CharacterHealth characterHealth = other.gameObject.GetComponent<CharacterHealth>();
+                characterHealth.TakeDamage(damage);
             }
         }
     }

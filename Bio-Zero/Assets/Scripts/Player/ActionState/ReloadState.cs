@@ -1,3 +1,8 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Animations.Rigging;
+using WeaponScripts;
+
 namespace Player.ActionState
 {
     public class ReloadState : ActionBaseState
@@ -8,6 +13,7 @@ namespace Player.ActionState
        
             actions.rHandAim.weight = 0;
             actions.lHandIK.weight = 0;
+            Debug.Log(actions.lHandIK.weight);
             actions.animator.SetTrigger("Reload");
         
 
