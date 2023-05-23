@@ -182,9 +182,6 @@ namespace Boss
             
             Rigidbody rigidbody = currentFireBall.GetComponent<Rigidbody>();
             rigidbody.AddForce(spherePos.forward * fireBallVelocity, ForceMode.Impulse);
-
-           
-
         }
 
         void stopAttack()

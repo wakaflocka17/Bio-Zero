@@ -3,6 +3,7 @@ using DataManager;
 using DataManager.Data;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Player.Info
 {
@@ -27,7 +28,7 @@ namespace Player.Info
         public TextMeshProUGUI timer;
         public TextMeshProUGUI level;
         public TextMeshProUGUI kill;
-    
+
         // Start is called before the first frame update
         void Start()
         {

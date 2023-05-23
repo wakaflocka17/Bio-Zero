@@ -10,6 +10,7 @@ namespace HUD.Menu
         public SettingsManager settingsM;
         public GameObject pauseMenu;
         public GameObject saveProgressMenu;
+        public GameObject cheatsMenu;
         public GameObject optionsMenu;
         public GameObject buttonPause;
         public GameObject buttonPlay;
@@ -27,6 +28,7 @@ namespace HUD.Menu
             buttonPressed = false;
             buttonPause.SetActive(true);
             buttonPlay.SetActive(false);
+            cheatsMenu.SetActive(false);
             pauseMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
             optionsMenu.SetActive(false);
@@ -54,6 +56,7 @@ namespace HUD.Menu
             /* Not visible HUD Elements */
             buttonPause.SetActive(false);
             optionsMenu.SetActive(false);
+            cheatsMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
             cameraGame.enabled = false;
             mouseController.enabled = false;
@@ -95,6 +98,7 @@ namespace HUD.Menu
         {
             pauseMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
+            cheatsMenu.SetActive(false);
             optionsMenu.SetActive(true);
         }
 
@@ -102,7 +106,16 @@ namespace HUD.Menu
         {
             pauseMenu.SetActive(false);
             optionsMenu.SetActive(false);
+            cheatsMenu.SetActive(false);
             saveProgressMenu.SetActive(true);
+        }
+
+        public void GoToCheats()
+        {
+            pauseMenu.SetActive(false);
+            optionsMenu.SetActive(false);
+            saveProgressMenu.SetActive(false);
+            cheatsMenu.SetActive(true);
         }
 
         public void PressedButtonSave()

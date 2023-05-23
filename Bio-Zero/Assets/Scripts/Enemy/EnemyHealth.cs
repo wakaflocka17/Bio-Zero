@@ -1,6 +1,8 @@
 using Player.Info;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine.UI;
 
 namespace Enemy
 {
@@ -10,6 +12,7 @@ namespace Enemy
         private int killCounter;
         [HideInInspector] public float health;
         Animator animator;
+        [SerializeField] private Slider lifeBar;
         [SerializeField] private Transform powerUpPosition;
         public PlayerInfoManager ps;
         private GameObject currentPowerUp;
@@ -17,7 +20,9 @@ namespace Enemy
         private void Start() 
         {
             health = 100;
-            animator= GetComponent<Animator>(); 
+            animator= GetComponent<Animator>();
+            lifeBar.value = health;
+            lifeBar.GameObject().SetActive(true);
         }
 
 
@@ -26,6 +31,8 @@ namespace Enemy
             if(health > 0)
             {
                 health -= damage;
+                lifeBar.value -= damage;
+                
                 if(health <= 0)
                     EnemyDeath();
             }
@@ -44,6 +51,7 @@ namespace Enemy
                 Instantiate(currentPowerUp, powerUpPosition.position, powerUpPosition.rotation);
             }
             killCounter++;
+            lifeBar.GameObject().SetActive(false);
             ps.setKill(1);
         }
     }
