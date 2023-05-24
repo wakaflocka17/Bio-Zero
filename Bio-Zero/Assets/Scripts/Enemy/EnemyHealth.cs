@@ -10,7 +10,7 @@ namespace Enemy
     {
         [SerializeField] public List<GameObject> powerUps;
         private int killCounter;
-        [HideInInspector] public float health;
+        [SerializeField] public float health;
         Animator animator;
         [SerializeField] private Slider lifeBar;
         [SerializeField] private Transform powerUpPosition;
@@ -19,7 +19,15 @@ namespace Enemy
         // Start is called before the first frame update
         private void Start() 
         {
-            health = 100;
+            if(this.gameObject.GetComponent<NestScript>())
+            {
+                health = health;
+            }
+            else
+            {
+                health = 100;
+            }
+            
             animator= GetComponent<Animator>();
             lifeBar.value = health;
             lifeBar.GameObject().SetActive(true);

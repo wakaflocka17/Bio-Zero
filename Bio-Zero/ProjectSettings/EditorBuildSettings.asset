@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Level/Test/SampleScene/SampleScene.unity
     guid: 18d1c5cbaccda49baa3b90a8cfe57674
+  - enabled: 1
+    path: Assets/Scenes/Level/SecondLevel/Nature.unity
+    guid: 4ee50bdf3d851704580ff0f5d697bac9
   m_configObjects: {}
