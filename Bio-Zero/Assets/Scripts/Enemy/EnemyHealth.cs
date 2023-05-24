@@ -2,6 +2,7 @@ using Player.Info;
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace Enemy
@@ -16,6 +17,9 @@ namespace Enemy
         [SerializeField] private Transform powerUpPosition;
         public PlayerInfoManager ps;
         private GameObject currentPowerUp;
+
+        [SerializeField] public CheatsManager cheatController;
+        
         // Start is called before the first frame update
         private void Start() 
         {
@@ -28,15 +32,32 @@ namespace Enemy
 
         public void TakeDamage(float damage)
         {
-            if(health > 0)
+
+            if (!cheatController.cheatOSKToggle.isOn)
             {
-                health -= damage;
-                lifeBar.value -= damage;
+                if(health > 0)
+                {
+                    health -= damage;
+                    lifeBar.value -= damage;
                 
-                if(health <= 0)
-                    EnemyDeath();
+                    if(health <= 0)
+                        EnemyDeath();
+                }
+
+                else
+                {
+                    health -= health;
+                    lifeBar.value -= lifeBar.value;
+                }
             }
-        
+
+            else
+            {
+                health -= health;
+                lifeBar.value -= health;
+                EnemyDeath();
+            }
+
         }
 
         // Update is called once per frame

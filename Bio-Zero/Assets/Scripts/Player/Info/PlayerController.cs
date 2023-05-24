@@ -33,8 +33,7 @@ namespace Player.Info
       animator = GetComponent<Animator>();
       controller = GetComponent<CharacterController>();
       SwitchState(Idle);
-     
-     
+      
     }
    
     private void Update() 

@@ -1,6 +1,8 @@
 using Cinemachine;
 using Player.AimStates;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace HUD.Menu
 {
@@ -16,6 +18,8 @@ namespace HUD.Menu
         public GameObject buttonPlay;
         public CinemachineBrain cameraGame;
         public CharacterController mouseController;
+
+        public SceneLoader sceneM;
 
         public void Start()
         {
@@ -81,6 +85,7 @@ namespace HUD.Menu
             buttonPressed = false;
             pauseMenu.SetActive(false);
             optionsMenu.SetActive(false);
+            cheatsMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
             buttonPlay.SetActive(false);
         
@@ -121,6 +126,13 @@ namespace HUD.Menu
         public void PressedButtonSave()
         {
             DataManager.DataManager.instance.SaveGame();
+        }
+
+        public void NextLevel()
+        {
+            int nextLevel = DataManager.DataManager.instance.GetPlayer().numberLevel;
+            nextLevel += 1;
+            sceneM.ChangeScene(nextLevel);
         }
 
     }

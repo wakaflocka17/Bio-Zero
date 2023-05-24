@@ -49,6 +49,8 @@ namespace WeaponScripts
 
         [HideInInspector] public bool isArmed;
 
+        [SerializeField] public CheatsManager cheatController;
+
         // Start is called before the first frame update
         private void Start()
         {
@@ -133,8 +135,13 @@ namespace WeaponScripts
         void Fire()
         {
             fireRateTimer = 0;
-            ammo.currentAmmo--;
-            ammo.textCurrentAmmo.text = ammo.currentAmmo.ToString(); //Ammo TextProUGui
+
+            if (!cheatController.cheatInfiniteAmmo.isOn)
+            {
+                ammo.currentAmmo--;
+                ammo.textCurrentAmmo.text = ammo.currentAmmo.ToString(); //Ammo TextProUGui
+            }
+            
             TriggerMuzzleFlash();
             barrelPos.LookAt(aim.aimPos);
             
