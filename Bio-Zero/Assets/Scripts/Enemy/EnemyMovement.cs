@@ -16,8 +16,8 @@ namespace Enemy
 
         private float distanceEnemyPlayer;
 
-        private float rangeAlert = 10.0f;
-        private float rangeAttack = 01.0f;
+        [SerializeField] private float rangeAlert;
+        [SerializeField] private float rangeAttack;
     
         private float waitTime;
         private float initWaitTime = 1f;
@@ -68,6 +68,7 @@ namespace Enemy
         }
         private void idleStateMode()
         {
+            // enemy.isStopped = false;
             enemy.SetDestination(pathEnemy[pathEnemyIndex].position);
         
             if (Vector3.Distance(transform.position, pathEnemy[pathEnemyIndex].position) < 3.0f)
@@ -91,13 +92,18 @@ namespace Enemy
         
             if (distanceEnemyPlayer < rangeAttack)
             { //Distance between Enemy and Player is lower than 1
+                enemy.velocity = Vector3.zero;
+                enemy.isStopped = true;
+                enemyState.SetBool("isAlert", false);
                 enemyState.SetBool("isAttack", true);
             }
         
             else if (distanceEnemyPlayer < rangeAlert)
             { //Distance between Enemy and Player is lower than 10
+                enemy.isStopped = false;
+                enemy.destination = playerTarget.transform.position;
                 enemyState.SetBool("isAlert", true);
-                enemy.SetDestination(playerTarget.transform.position);
+                //enemy.SetDestination(playerTarget.transform.position);
             }
         }
         public void ResetAnimatorState(Animator animator)
@@ -142,5 +148,7 @@ namespace Enemy
         {
             bloodSplatter.Stop();
         }
+
+        //void rotateToPlayer
     }
 }

@@ -58,6 +58,7 @@ namespace Enemy
                 currentPowerUp = powerUps[randomIndex];
                 Instantiate(currentPowerUp, powerUpPosition.position, powerUpPosition.rotation);
             }
+            
             killCounter++;
             lifeBar.GameObject().SetActive(false);
             ps.setKill(1);
