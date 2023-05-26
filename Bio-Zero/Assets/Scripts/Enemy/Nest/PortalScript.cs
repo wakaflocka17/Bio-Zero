@@ -6,6 +6,7 @@ using Player.ActionState;
 
 public class PortalScript : MonoBehaviour
 {
+    [SerializeField] private string sceneName;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +20,8 @@ public class PortalScript : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
+
         if(other.gameObject.GetComponent<ActionStateManager>())
-            SceneManager.LoadScene("Nature");
+            SceneManager.LoadScene(sceneName);
     }
 }

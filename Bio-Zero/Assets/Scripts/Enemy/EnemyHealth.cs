@@ -16,23 +16,17 @@ namespace Enemy
         [SerializeField] private Transform powerUpPosition;
         public PlayerInfoManager ps;
         private GameObject currentPowerUp;
+        [SerializeField] private GameObject canDropKey;
+        [SerializeField] private GameObject key;
+        private int powerUpProbability = 25;
+        private int keyProbability = 100;
         // Start is called before the first frame update
         private void Start() 
-        {
-            if(this.gameObject.GetComponent<NestScript>())
-            {
-                health = health;
-            }
-            else
-            {
-                health = 100;
-            }
-            
+        {   
             animator= GetComponent<Animator>();
             lifeBar.value = health;
             lifeBar.GameObject().SetActive(true);
         }
-
 
         public void TakeDamage(float damage)
         {
@@ -50,18 +44,38 @@ namespace Enemy
         // Update is called once per frame
         public void EnemyDeath()
         {
+            if(this.gameObject.GetComponent<barrackScript>())
+            {
+                powerUpProbability = 50;
+            }
+            
             int randInd = Random.Range(0,100);
             //GameObject powerUp = Instantiate(fireBall, spherePos.position, spherePos.rotation);
-            if(randInd < 80)
+            if(randInd < powerUpProbability)
             {
                 int randomIndex = Random.Range(0, powerUps.Count);
                 currentPowerUp = powerUps[randomIndex];
                 Instantiate(currentPowerUp, powerUpPosition.position, powerUpPosition.rotation);
             }
+            if(canDropKey.GetComponent<BarrackManager>().GetContinue())
+            {
+                if(randInd < keyProbability)
+                {
+                    
+                    Instantiate(key, powerUpPosition.position, powerUpPosition.rotation);
+                }
+                canDropKey.GetComponent<BarrackManager>().setContinue(false);
+            }
             
             killCounter++;
             lifeBar.GameObject().SetActive(false);
             ps.setKill(1);
+            
+        }
+
+        public void Destroy()
+        {
+            Destroy(this.gameObject);
         }
     }
 }
