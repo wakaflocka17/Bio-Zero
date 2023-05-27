@@ -149,8 +149,8 @@ namespace HUD.Menu
 
         public void GoToGame()
         {
-            int nextLevel = DataManager.DataManager.instance.GetPlayer().numberLevel;
-            sceneM.ChangeScene(nextLevel);
+            int actualLevel = SceneManager.GetActiveScene().buildIndex;
+            sceneM.ChangeScene(actualLevel);
         }
 
         public void NextLevel()
