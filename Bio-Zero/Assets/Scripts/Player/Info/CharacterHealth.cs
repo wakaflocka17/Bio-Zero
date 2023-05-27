@@ -1,3 +1,4 @@
+using HUD.Menu;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ namespace Player.Info
         public float health;
         public float shield;
         Animator animator;
-
+        [SerializeField] private PauseMenuManager pauseM;
         [SerializeField] private CheatsManager cheatController;
         
         // Start is called before the first frame update
@@ -64,7 +65,7 @@ namespace Player.Info
         public void EnemyDeath()
         {
             animator.SetBool("isDead", true);
-
+            pauseM.DefeatMenu();
         }
         public void DisableDeath()
         {

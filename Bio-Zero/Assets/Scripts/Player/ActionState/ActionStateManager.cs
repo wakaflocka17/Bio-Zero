@@ -10,8 +10,8 @@ namespace Player.ActionState
         [HideInInspector] public ActionBaseState currentState;
         public ReloadState Reload = new ReloadState();
         public DefaultState Default = new DefaultState();
-       
 
+        [SerializeField] public InventoryManager inventoryM;
         [SerializeField] public List<WeaponManager> weapons;
         [HideInInspector] public WeaponManager currentWeapon;
         [HideInInspector] public WeaponAmmo ammo;
@@ -24,6 +24,7 @@ namespace Player.ActionState
 
         [HideInInspector] public int weaponIndex = 0;
         public int componentIndex = 0;
+        
 
         // Start is called before the first frame update
         void Start()
@@ -111,6 +112,7 @@ namespace Player.ActionState
 
             if (weaponIndex >= 1 && weaponIndex <= weapons.Count && weapons[weaponIndex - 1] != currentWeapon)
             {
+                inventoryM.SwitchWeapon(weaponIndex);
                 animator.SetTrigger("Switch");
                 currentWeapon = weapons[weaponIndex - 1];
                 currentWeapon.isArmed = true;
@@ -151,8 +153,10 @@ namespace Player.ActionState
             {
                 Debug.Log("lancia");
                 weapons.Remove(currentWeapon);
+                inventoryM.RemoveWeapon(currentWeapon);
                 currentWeapon.Drop();
                 currentWeapon = weapons[0];
+                inventoryM.SwitchWeapon(0);
                 currentWeapon.gameObject.SetActive(true);
             }
         }

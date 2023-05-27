@@ -8,6 +8,9 @@ namespace WeaponScripts
 {
     public class WeaponManager : MonoBehaviour
     {
+        [Header("Image Weapon")] 
+        [SerializeField] public Sprite imageWeapon;
+        
         [Header("Fire Rate")]
         [SerializeField] float fireRate;
         private float fireRateTimer;
@@ -50,6 +53,7 @@ namespace WeaponScripts
         [HideInInspector] public bool isArmed;
 
         [SerializeField] public CheatsManager cheatController;
+        [SerializeField] public InventoryManager inventoryM;
 
         // Start is called before the first frame update
         private void Start()
@@ -78,6 +82,7 @@ namespace WeaponScripts
                 rb.isKinematic = true;
                 coll.isTrigger = true;
                 slotFull = true;
+                inventoryM.AddWeapon(this);
             }
         
         }
@@ -183,7 +188,7 @@ namespace WeaponScripts
             else
                 gameObject.SetActive(false);
             actions.weapons.Add(this);
-            
+            inventoryM.AddWeapon(this);
         }
 
         public void Drop()
@@ -197,7 +202,7 @@ namespace WeaponScripts
 
                 rb.isKinematic = false;
                 coll.isTrigger = false;
-
+                
                 rb.velocity = player.GetComponent<CharacterController>().velocity;
                 //AddForce
                 rb.AddForce(fpsCam.forward * dropForwardForce, ForceMode.Impulse);

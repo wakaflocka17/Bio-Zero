@@ -12,6 +12,7 @@ namespace HUD.Menu
         public SettingsManager settingsM;
         public GameObject pauseMenu;
         public GameObject saveProgressMenu;
+        public GameObject defeatMenu;
         public GameObject cheatsMenu;
         public GameObject optionsMenu;
         public GameObject buttonPause;
@@ -32,6 +33,7 @@ namespace HUD.Menu
             buttonPressed = false;
             buttonPause.SetActive(true);
             buttonPlay.SetActive(false);
+            defeatMenu.SetActive(false);
             cheatsMenu.SetActive(false);
             pauseMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
@@ -60,6 +62,7 @@ namespace HUD.Menu
             /* Not visible HUD Elements */
             buttonPause.SetActive(false);
             optionsMenu.SetActive(false);
+            defeatMenu.SetActive(false);
             cheatsMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
             cameraGame.enabled = false;
@@ -84,6 +87,7 @@ namespace HUD.Menu
             /* Not visible HUD Elements */
             buttonPressed = false;
             pauseMenu.SetActive(false);
+            defeatMenu.SetActive(false);
             optionsMenu.SetActive(false);
             cheatsMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
@@ -102,6 +106,7 @@ namespace HUD.Menu
         public void GoToSettings()
         {
             pauseMenu.SetActive(false);
+            defeatMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
             cheatsMenu.SetActive(false);
             optionsMenu.SetActive(true);
@@ -110,6 +115,7 @@ namespace HUD.Menu
         public void GoToSaveGame()
         {
             pauseMenu.SetActive(false);
+            defeatMenu.SetActive(false);
             optionsMenu.SetActive(false);
             cheatsMenu.SetActive(false);
             saveProgressMenu.SetActive(true);
@@ -118,6 +124,7 @@ namespace HUD.Menu
         public void GoToCheats()
         {
             pauseMenu.SetActive(false);
+            defeatMenu.SetActive(false);
             optionsMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
             cheatsMenu.SetActive(true);
@@ -126,6 +133,24 @@ namespace HUD.Menu
         public void PressedButtonSave()
         {
             DataManager.DataManager.instance.SaveGame();
+        }
+
+        public void DefeatMenu()
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            
+            pauseMenu.SetActive(false);
+            optionsMenu.SetActive(false);
+            saveProgressMenu.SetActive(false);
+            cheatsMenu.SetActive(false);
+            defeatMenu.SetActive(true);
+        }
+
+        public void GoToGame()
+        {
+            int nextLevel = DataManager.DataManager.instance.GetPlayer().numberLevel;
+            sceneM.ChangeScene(nextLevel);
         }
 
         public void NextLevel()
