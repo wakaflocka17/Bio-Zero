@@ -16,7 +16,7 @@ namespace Enemy
         [SerializeField] private Transform powerUpPosition;
         public PlayerInfoManager ps;
         private GameObject currentPowerUp;
-        [SerializeField] private GameObject canDropKey;
+        [SerializeField] private string enemyType;
         [SerializeField] private GameObject key;
         private int powerUpProbability = 25;
         private int keyProbability = 100;
@@ -30,6 +30,7 @@ namespace Enemy
 
         public void TakeDamage(float damage)
         {
+            print("preso danno");
             if(health > 0)
             {
                 health -= damage;
@@ -38,7 +39,6 @@ namespace Enemy
                 if(health <= 0)
                     EnemyDeath();
             }
-        
         }
 
         // Update is called once per frame
@@ -57,16 +57,10 @@ namespace Enemy
                 currentPowerUp = powerUps[randomIndex];
                 Instantiate(currentPowerUp, powerUpPosition.position, powerUpPosition.rotation);
             }
-            if(canDropKey.GetComponent<BarrackManager>().GetContinue())
+            if(enemyType == "boss")
             {
-                if(randInd < keyProbability)
-                {
-                    
-                    Instantiate(key, powerUpPosition.position, powerUpPosition.rotation);
-                }
-                canDropKey.GetComponent<BarrackManager>().setContinue(false);
+                Instantiate(key, powerUpPosition.position, powerUpPosition.rotation);
             }
-            
             killCounter++;
             lifeBar.GameObject().SetActive(false);
             ps.setKill(1);
