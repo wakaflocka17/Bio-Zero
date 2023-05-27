@@ -9490,7 +9490,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 696061787}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 878596654}
+        m_TargetAssemblyTypeName: HUD.Menu.MainMenuManager, Assembly-CSharp
+        m_MethodName: LoadOldGame
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2037714459}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &696061787
 MonoBehaviour:
   m_ObjectHideFlags: 0

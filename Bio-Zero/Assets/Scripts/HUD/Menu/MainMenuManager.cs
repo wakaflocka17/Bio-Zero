@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace HUD.Menu
 {
@@ -38,6 +39,14 @@ namespace HUD.Menu
         {
             DataManager.DataManager.instance.LoadGame(insertNickname.text);
             sceneM.ChangeScene(1);
+        }
+
+        public void LoadOldGame(TextMeshProUGUI nicknameTextField)
+        {
+            DataManager.DataManager.instance.LoadGame(nicknameTextField.text);
+            int idLevel = DataManager.DataManager.instance.GetPlayer().numberLevel;
+            
+            sceneM.ChangeScene(idLevel);
         }
 
         public void SetNickname()
