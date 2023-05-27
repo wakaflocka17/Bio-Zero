@@ -22,8 +22,9 @@ namespace WeaponScripts
             if(other.gameObject.GetComponentInParent<EnemyHealth>())
             {
                 print("pollo1");
-                EnemyHealth enemyHealth = other.gameObject.GetComponentInParent<EnemyHealth>();
+                EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
                 enemyHealth.TakeDamage(weapon.damage);
+                
             
             }
             else if(other.gameObject.GetComponentInParent<BossHealth>())

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Player.Info;
 
 namespace Enemy
 {
@@ -25,7 +26,7 @@ namespace Enemy
         public GameObject playerTarget;
         private float damageAttack;
         private EnemyHealth health;
-    
+        private Vector3 playerPos;
         [SerializeField] ParticleSystem bloodSplatter;
         [SerializeField] List<Collider> handColliders;
 
@@ -35,25 +36,30 @@ namespace Enemy
         {
             health = GetComponent<EnemyHealth>();								
             enemy = GetComponent<NavMeshAgent>();
-            playerTarget = GameObject.FindWithTag("Player");
             enemyState = GetComponent<Animator>();
             waitTime = initWaitTime;
             pathEnemyIndex = Random.Range(0, pathEnemy.Length);
         }
+
         // Update is called once per frame
         void Update()
         {
             ResetAnimatorState(enemyState);
 
+            if(playerTarget.GetComponent<CharacterHealth>().health > 0) 
+            {
+                playerPos = playerTarget.transform.position;
+            }
+
             if (health.health > 0)
             {
-                float distance = Vector3.Distance(playerTarget.transform.position, transform.position);
-        
+                float distance = Vector3.Distance(playerPos, transform.position);
+    
                 if (distance > rangeAlert)
                 {
                     idleStateMode();
                 }
-            
+        
                 else
                 {
                     followPlayer();
@@ -88,7 +94,7 @@ namespace Enemy
         private void followPlayer()
         {
             //Set distance offset between enemy ai and player
-            distanceEnemyPlayer = Vector3.Distance(transform.position, playerTarget.transform.position);
+            distanceEnemyPlayer = Vector3.Distance(transform.position, playerPos);
         
             if (distanceEnemyPlayer < rangeAttack)
             { //Distance between Enemy and Player is lower than 1
@@ -101,7 +107,7 @@ namespace Enemy
             else if (distanceEnemyPlayer < rangeAlert)
             { //Distance between Enemy and Player is lower than 10
                 enemy.isStopped = false;
-                enemy.destination = playerTarget.transform.position;
+                enemy.destination = playerPos;
                 enemyState.SetBool("isAlert", true);
                 //enemy.SetDestination(playerTarget.transform.position);
             }
@@ -120,7 +126,7 @@ namespace Enemy
         void AllertState()
         {
             enemyState.SetBool("isAlert", true);
-            enemy.SetDestination(playerTarget.transform.position);
+            enemy.SetDestination(playerPos);
         }
     
         void EnableCollider()
