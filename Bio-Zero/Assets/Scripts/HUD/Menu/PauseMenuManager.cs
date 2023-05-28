@@ -1,4 +1,5 @@
 using Cinemachine;
+using Palmmedia.ReportGenerator.Core.Common;
 using Player.AimStates;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace HUD.Menu
         public SettingsManager settingsM;
         public GameObject pauseMenu;
         public GameObject saveProgressMenu;
+        public GameObject confirmMenu;
         public GameObject defeatMenu;
         public GameObject cheatsMenu;
         public GameObject optionsMenu;
@@ -19,11 +21,14 @@ namespace HUD.Menu
         public GameObject buttonPlay;
         public CinemachineBrain cameraGame;
         public CharacterController mouseController;
+        public TextMeshProUGUI level;
+        public TextMeshProUGUI kill;
 
         public SceneLoader sceneM;
 
         public void Start()
         {
+            level.text = SceneManager.GetActiveScene().buildIndex.ToString();
             // For setting cursor position in game
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
@@ -33,6 +38,7 @@ namespace HUD.Menu
             buttonPressed = false;
             buttonPause.SetActive(true);
             buttonPlay.SetActive(false);
+            confirmMenu.SetActive(false);
             defeatMenu.SetActive(false);
             cheatsMenu.SetActive(false);
             pauseMenu.SetActive(false);
@@ -61,6 +67,7 @@ namespace HUD.Menu
         
             /* Not visible HUD Elements */
             buttonPause.SetActive(false);
+            confirmMenu.SetActive(false);
             optionsMenu.SetActive(false);
             defeatMenu.SetActive(false);
             cheatsMenu.SetActive(false);
@@ -86,6 +93,7 @@ namespace HUD.Menu
         
             /* Not visible HUD Elements */
             buttonPressed = false;
+            confirmMenu.SetActive(false);
             pauseMenu.SetActive(false);
             defeatMenu.SetActive(false);
             optionsMenu.SetActive(false);
@@ -105,6 +113,7 @@ namespace HUD.Menu
 
         public void GoToSettings()
         {
+            confirmMenu.SetActive(false);
             pauseMenu.SetActive(false);
             defeatMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
@@ -114,11 +123,22 @@ namespace HUD.Menu
 
         public void GoToSaveGame()
         {
+            confirmMenu.SetActive(false);
             pauseMenu.SetActive(false);
             defeatMenu.SetActive(false);
             optionsMenu.SetActive(false);
             cheatsMenu.SetActive(false);
             saveProgressMenu.SetActive(true);
+        }
+
+        public void ConfirmSaveGame()
+        {
+            pauseMenu.SetActive(false);
+            defeatMenu.SetActive(false);
+            optionsMenu.SetActive(false);
+            cheatsMenu.SetActive(false);
+            saveProgressMenu.SetActive(false);
+            confirmMenu.SetActive(true);
         }
 
         public void GoToCheats()
@@ -133,6 +153,8 @@ namespace HUD.Menu
         public void PressedButtonSave()
         {
             DataManager.DataManager.instance.SaveGame();
+            ConfirmSaveGame();
+            
         }
 
         public void DefeatMenu()
@@ -150,13 +172,26 @@ namespace HUD.Menu
         public void GoToGame()
         {
             int actualLevel = SceneManager.GetActiveScene().buildIndex;
-            sceneM.ChangeScene(actualLevel);
+
+            if (actualLevel < 4)
+            {
+                DataManager.DataManager.instance.GetPlayer().numberLevel += actualLevel;
+                sceneM.ChangeScene(actualLevel);
+            }
         }
 
         public void NextLevel()
         {
-            int nextLevel = DataManager.DataManager.instance.GetPlayer().numberLevel;
-            nextLevel += 1;
+            int nextLevel = SceneManager.GetActiveScene().buildIndex;
+            
+            //Because 0,1,2,3 are Scene on Game
+            if (nextLevel < 4)
+            {
+                nextLevel += 1;
+                DataManager.DataManager.instance.GetPlayer().numberLevel += 1;
+                DataManager.DataManager.instance.GetPlayer().numberKill = kill.text.ParseLargeInteger();
+            }
+            
             sceneM.ChangeScene(nextLevel);
         }
 

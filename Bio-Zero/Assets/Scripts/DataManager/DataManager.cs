@@ -7,9 +7,6 @@ namespace DataManager
 {
     public class DataManager : MonoBehaviour
     {
-        [Header("File Storage Config")] 
-        [SerializeField] private string fileName;
-
         [Header("User Input Text")]
         private string nickname = "";
 
@@ -36,13 +33,18 @@ namespace DataManager
 
         private void Start()
         {
-            dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+            dataHandler = new FileDataHandler(Application.persistentDataPath, "");
             dataObjects = FindAllDataObjects();
         }
 
         public void NewGame(string nicknamePlayer)
         {
             infoPlayer = new InfoGameData(nicknamePlayer);
+        }
+
+        public InfoGameData GetPlayer()
+        {
+            return infoPlayer;
         }
     
         public void LoadGame(string nicknamePlayer)
@@ -91,11 +93,6 @@ namespace DataManager
         public string GetNickname()
         {
             return nickname;
-        }
-
-        public InfoGameData GetPlayer()
-        {
-            return infoPlayer;
         }
 
     }
