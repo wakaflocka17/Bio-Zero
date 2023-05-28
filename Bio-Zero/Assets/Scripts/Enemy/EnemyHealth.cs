@@ -35,10 +35,9 @@ namespace Enemy
         public void TakeDamage(float damage)
         {
 
-            if (!cheatController.cheatOSKToggle.isOn)
-            print("preso danno");
-            if(health > 0)
+            if (!cheatController.cheatOSKToggle.isOn) 
             {
+                print("preso danno");
                 if(health > 0)
                 {
                     health -= damage;

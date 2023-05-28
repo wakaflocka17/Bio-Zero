@@ -10,6 +10,7 @@ namespace Boss
         private Animator bossAnimator;
         [SerializeField] private Slider lifeBar;
         private float startHealth;
+        public float health;
 
         private int nPhase; //Start from one to three
 

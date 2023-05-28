@@ -24,8 +24,11 @@ public class InventoryManager : MonoBehaviour
                 Transform iconSlotDisable = disableSlot[i].transform.Find("IconSlot");
                 Image iconImageActive = iconSlotActive.GetComponent<Image>();
                 Image iconImageDisable = iconSlotDisable.GetComponent<Image>();
-                
+
+                iconImageActive.sprite = null;
                 iconImageActive.enabled = false;
+                
+                iconImageDisable.sprite = null;
                 iconImageDisable.enabled = false;
             }
         }

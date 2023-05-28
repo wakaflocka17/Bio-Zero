@@ -41,7 +41,6 @@ namespace Player.ActionState
         // Update is called once per frame
         void Update()
         {
-        
             ammo = currentWeapon.ammo;
             audioSource = currentWeapon.audioSource;
        
