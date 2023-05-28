@@ -1,3 +1,4 @@
+using System;
 using Player.Info;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Enemy
     public class EnemyAttack : MonoBehaviour
     {
         public int damage = 20;
-    
+
         private void OnTriggerEnter(Collider other) 
         {
             if(other.gameObject.GetComponent<CharacterHealth>())
@@ -17,6 +18,6 @@ namespace Enemy
             }
         
         }
-    
+
     }
 }

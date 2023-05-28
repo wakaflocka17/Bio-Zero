@@ -29,6 +29,9 @@ namespace Player.Info
         public TextMeshProUGUI level;
         public TextMeshProUGUI kill;
 
+        [Header("Cheats Toogle")] 
+        [SerializeField] public CheatsManager cheatController;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -36,7 +39,7 @@ namespace Player.Info
         
             nLevel = 0; //Level init to the first level
             setLevel(nLevelCounter);
-        
+
             nKill = 0; //Kill number init to zero
             setKill(nKill);
 
@@ -115,7 +118,6 @@ namespace Player.Info
             infoPlayer.minutes = gameplayTimer.Minutes;
             infoPlayer.seconds = gameplayTimer.Seconds;
         }
-    
-    
+        
     }
 }

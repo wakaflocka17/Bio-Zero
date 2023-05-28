@@ -93,5 +93,10 @@ namespace DataManager
             return nickname;
         }
 
+        public InfoGameData GetPlayer()
+        {
+            return infoPlayer;
+        }
+
     }
 }

@@ -8,7 +8,7 @@ namespace Enemy
         private Vector3 randomIndexSpawner; //used for choose more Spawner
 
         private float waitTime;
-        private float initWaitTime = 5f; //Waiting time for spawn an Zombie object
+        private float initWaitTime = 1f; //Waiting time for spawn an Zombie object
     
         public GameObject[] myZombies; //Containes enemy zombies object
         public Transform[] spawnerZombies; //Transform path for Enemy

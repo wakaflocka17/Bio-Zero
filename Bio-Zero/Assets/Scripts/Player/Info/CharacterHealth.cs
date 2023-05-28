@@ -1,3 +1,4 @@
+using HUD.Menu;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,9 @@ namespace Player.Info
         public float health;
         public float shield;
         Animator animator;
+        [SerializeField] private PauseMenuManager pauseM;
+        [SerializeField] private CheatsManager cheatController;
+        
         // Start is called before the first frame update
         private void Start() 
         {
@@ -30,28 +34,27 @@ namespace Player.Info
 
         public void TakeDamage(float damage)
         {
-            animator.SetBool("Hit", true);
-        
-            if(shield > 0)
+            if (!cheatController.cheatNoDamageToggle.isOn)
             {
-                shield -= damage;
-                sliderShield.value = shield;
-            
-                if(shield < 0)
+                if(shield > 0)
                 {
-                    shield = 0;
+                    sliderShield.value = shield;
+            
+                    if(shield < 0)
+                    {
+                        shield = 0;
+                    }
+                }
+        
+                else if(health > 0)
+                {
+                    health -= damage;
+                    sliderHealth.value = health;
+            
+                    if(health <= 0)
+                        EnemyDeath();
                 }
             }
-        
-            else if(health > 0)
-            {
-                health -= damage;
-                sliderHealth.value = health;
-            
-                if(health <= 0)
-                    EnemyDeath();
-            }
-
         }
 
         public void DisableHitAnimation()
@@ -62,7 +65,7 @@ namespace Player.Info
         public void EnemyDeath()
         {
             animator.SetBool("isDead", true);
-
+            pauseM.DefeatMenu();
         }
         public void DisableDeath()
         {

@@ -101,7 +101,7 @@ namespace Enemy
                 enemy.velocity = Vector3.zero;
                 enemy.isStopped = true;
                 enemyState.SetBool("isAlert", false);
-                enemyState.SetBool("isAttack", true);
+                AttackState();
             }
         
             else if (distanceEnemyPlayer < rangeAlert)

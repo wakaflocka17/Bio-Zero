@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.VisualScripting;
@@ -6,10 +7,10 @@ namespace Boss
 {
     public class BossHealth : MonoBehaviour
     {
-        public float health;
         private Animator bossAnimator;
         [SerializeField] private Slider lifeBar;
         private float startHealth;
+        public float health;
 
         private int nPhase; //Start from one to three
 
@@ -20,8 +21,9 @@ namespace Boss
             lifeBar.value = health;
             lifeBar.GameObject().SetActive(true);
             nPhase = 1;
-            health = 50;
             bossAnimator = GetComponent<Animator>(); 
+            lifeBar.value = health;
+            lifeBar.GameObject().SetActive(true);
         }
 
         public void TakeDamage(float damage)
@@ -34,6 +36,7 @@ namespace Boss
                     {
                         lifeBar.value -= damage;
                         health -= damage;
+                        lifeBar.value -= damage;
                         if (health <= 0)
                         {
                             bossPowerUp();
@@ -47,6 +50,8 @@ namespace Boss
                     {
                         lifeBar.value -= damage;
                         health -= damage;
+                        lifeBar.value -= damage;
+                        Debug.Log("La lifebar vale:" + lifeBar.value);
                         if(health <= 0)
                             BossDeath();
                     }
