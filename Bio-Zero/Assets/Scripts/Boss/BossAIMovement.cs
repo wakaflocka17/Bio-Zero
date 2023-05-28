@@ -68,7 +68,7 @@ namespace Boss
                 //First stage of Boss
                 case 1:
                     rangeAttack = 3.0f;
-                    rangeAlert = 10.0f;
+                    rangeAlert = 30.0f;
                     firstPhase();
                     break;
             
@@ -111,12 +111,12 @@ namespace Boss
                 // Setup the struct fighting, attack and follower for Boss Second Stage
                 if (distance > rangeAlert)
                 {
-                    Debug.Log("diocane1");
+                    
                     IdleStateMode();
                 }
                 else
                 {
-                    Debug.Log("porcodio2");
+                    
                     FollowPlayer();
                 }
             }
@@ -144,11 +144,14 @@ namespace Boss
         
             if (distance <= rangeAttack && playerHealth.health > 0)
             { //Distance between Enemy and Player is lower than 1
+                boss.velocity = Vector3.zero;
+                boss.isStopped = true;
                 AttackState();
             }
 
             else if (distance <= rangeAlert && playerHealth.health > 0)
             { //Distance between Enemy and Player is lower than 10
+                boss.isStopped = false;
                 AlertState();
             }
         }
@@ -170,9 +173,15 @@ namespace Boss
         void AttackState()
         {
             if(bossHealth.getNPhase() == 1)
+            {
+                bossState.SetBool("isAlert", false);
                 bossState.SetBool("isAttack", true);
+            }
             else 
+            {
+                bossState.SetBool("isAlert", false);
                 bossState.SetTrigger("isShooting");
+            }
         }
 
         //called as an event

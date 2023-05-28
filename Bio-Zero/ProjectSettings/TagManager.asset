@@ -15,6 +15,7 @@ TagManager:
   - NicknameInsert
   - DataManager
   - Weapon
+  - SpherePos
   layers:
   - Default
   - TransparentFX

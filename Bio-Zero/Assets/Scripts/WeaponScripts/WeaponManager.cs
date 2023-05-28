@@ -44,6 +44,7 @@ namespace WeaponScripts
         Rigidbody rb;
         MeshCollider coll;
         public Transform player, weapons, fpsCam;
+        
 
         public float pickUpRange;
         public float dropForwardForce, dropUpwardForce;
@@ -58,7 +59,7 @@ namespace WeaponScripts
         // Start is called before the first frame update
         private void Start()
         {
-
+            
             hipFov = vCam.m_Lens.FieldOfView;
             audioSource = GetComponent<AudioSource>();
             ammo = GetComponent<WeaponAmmo>();
@@ -98,7 +99,8 @@ namespace WeaponScripts
 
             if(ShouldFire()) 
             {
-                vCam.m_Lens.FieldOfView = Mathf.Lerp(vCam.m_Lens.FieldOfView, currentFov, fovSmoothSpeed * Time.deltaTime);
+                //recoil.ApplyRecoil();
+                //vCam.m_Lens.FieldOfView = Mathf.Lerp(vCam.m_Lens.FieldOfView, currentFov, fovSmoothSpeed * Time.deltaTime);
                 Fire();
             }
 

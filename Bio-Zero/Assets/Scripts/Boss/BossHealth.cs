@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 namespace Boss
 {
@@ -8,16 +9,17 @@ namespace Boss
     {
         private Animator bossAnimator;
         [SerializeField] private Slider lifeBar;
-        
-        public float health;
+        private float startHealth;
 
         private int nPhase; //Start from one to three
 
         // Start is called before the first frame update
         private void Start()
         {
+            startHealth = health;
+            lifeBar.value = health;
+            lifeBar.GameObject().SetActive(true);
             nPhase = 1;
-            health = 100;
             bossAnimator = GetComponent<Animator>(); 
             lifeBar.value = health;
             lifeBar.GameObject().SetActive(true);
@@ -31,6 +33,7 @@ namespace Boss
                 case 1: 
                     if(health > 0)
                     {
+                        lifeBar.value -= damage;
                         health -= damage;
                         lifeBar.value -= damage;
                         if (health <= 0)
@@ -44,6 +47,7 @@ namespace Boss
 
                     if(health > 0)
                     {
+                        lifeBar.value -= damage;
                         health -= damage;
                         lifeBar.value -= damage;
                         Debug.Log("La lifebar vale:" + lifeBar.value);
@@ -58,8 +62,8 @@ namespace Boss
         // Second stage for setup boss power up
         public void bossPowerUp()
         {
-            health = 100;
-            lifeBar.value = health;
+            lifeBar.value = startHealth;
+            health = startHealth;
             bossAnimator.SetTrigger("isLevelUp");
             
         }
@@ -67,6 +71,7 @@ namespace Boss
         // I've used this function for setup boss dead
         public void BossDeath()
         {
+            lifeBar.GameObject().SetActive(false);
             bossAnimator.SetBool("isDead", true);
         }
 

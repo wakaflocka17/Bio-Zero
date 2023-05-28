@@ -24,7 +24,7 @@ namespace Player.ActionState
 
         [HideInInspector] public int weaponIndex = 0;
         public int componentIndex = 0;
-        
+        [SerializeField] GameObject doorLaboratory;
 
         // Start is called before the first frame update
         void Start()
@@ -131,21 +131,6 @@ namespace Player.ActionState
 
             print(weaponIndex);
         } 
-/*
-    public void AssignWeapon(WeaponManager weapon) {
-        if(weapons.Length < 3)
-        {
-            weapon.GetComponent<WeaponMovement>().enabled = false;
-            //oggetto 1 figlio di oggetto 2
-            weapon.transform.parent = weapons[0].transform.parent; 
-            
-            Array.Resize(ref weapons, weapons.Length + 1);
-            weapons[weapons.Length - 1] = weapon; 
-
-            weapon.transform.localPosition = weapons[0].transform.localPosition;
-            weapon.transform.localRotation = weapons[0].transform.localRotation;
-        }
-    }*/
 
         public void DropWeapon()
         {
@@ -159,6 +144,14 @@ namespace Player.ActionState
                 inventoryM.SwitchWeapon(0);
                 currentWeapon.gameObject.SetActive(true);
             }
+        }
+
+        private void OnTriggerEnter(Collider other) 
+        {
+          if(other.gameObject.GetComponent<KeyScript>())
+          {
+              doorLaboratory.SetActive(false);
+          }
         }
     }
 }
