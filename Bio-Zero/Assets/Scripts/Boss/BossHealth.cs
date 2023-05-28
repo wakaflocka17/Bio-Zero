@@ -20,7 +20,6 @@ namespace Boss
             lifeBar.value = health;
             lifeBar.GameObject().SetActive(true);
             nPhase = 1;
-            health = 50;
             bossAnimator = GetComponent<Animator>(); 
         }
 

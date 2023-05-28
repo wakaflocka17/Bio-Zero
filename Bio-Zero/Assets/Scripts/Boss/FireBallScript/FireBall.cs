@@ -6,16 +6,18 @@ namespace Boss.FireBallScript
     public class FireBall : MonoBehaviour
     {
         
-        [SerializeField] private Transform playerTarget;
-        [SerializeField] private Transform spherePos;
+        private Transform playerTarget;
+        private Transform spherePos;
         [SerializeField] float timeToDestroy;
         private float damage = 20;
-        private float speed = 5f;  // Velocità di movimento della palla di fuoco
+        private float speed = 30f;  // Velocità di movimento della palla di fuoco
 
         private Rigidbody rb;
         // Start is called before the first frame update
         void Start()
         {
+            playerTarget = GameObject.FindWithTag("Player").transform;
+            spherePos = GameObject.FindWithTag("SpherePos").transform;
             rb = GetComponent<Rigidbody>();
             Destroy(this.gameObject, timeToDestroy);
         }
@@ -23,6 +25,7 @@ namespace Boss.FireBallScript
         private void Update() 
         {
             Vector3 direction = (playerTarget.position - transform.position).normalized;
+            direction.y = 0;
             rb.AddForce(direction * speed);
         }
 
@@ -37,12 +40,6 @@ namespace Boss.FireBallScript
                 playerHealth.TakeDamage(damage);
                 Destroy(this.gameObject);
             }
-
-            
-        }
-
-        private void OnTriggerEnter(Collider other) {
-            
         }
     }
 }
