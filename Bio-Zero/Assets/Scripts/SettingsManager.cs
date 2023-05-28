@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,8 +13,9 @@ public class SettingsManager : MonoBehaviour
     public Slider sliderSounds;
     //public AudioMixer audio;
 
-    [Header("Resolution Menu Element")] 
+    [Header("Resolution Menu Element")]
     /* I've use this only for setup the real logic button */
+    private int resIndex;
     private Toggle highRadioRes;
     private Toggle mediumRadioRes;
     private Toggle lowRadioRes;
@@ -22,21 +25,47 @@ public class SettingsManager : MonoBehaviour
     public GameObject buttonOffFS;
 
     [Header("ScreenSize Menu Element")] 
-    public GameObject dropDownButton;
+    private int indexDropDown;
+    public TMP_Dropdown dropDownButton;
+    public Resolution[] resolutionList;
     
     // Start is called before the first frame update
     void Start()
     {
+        List<string> optionResolutions = new List<string>();
+        
+        resolutionList = Screen.resolutions;
+        dropDownButton.ClearOptions();
+
+        for (int i = 0; i < resolutionList.Length; i++)
+        {
+            string resolution = resolutionList[i].width + " x " + resolutionList[i].height;
+            optionResolutions.Add(resolution);
+
+            if (resolutionList[i].width == Screen.currentResolution.width &&
+                resolutionList[i].height == Screen.currentResolution.height)
+            {
+                indexDropDown = i;
+            }
+        }
+        
+        dropDownButton.AddOptions(optionResolutions);
+        dropDownButton.value = indexDropDown;
+        dropDownButton.RefreshShownValue();
+        
         sliderSounds.value = 100.0f;
         
         buttonOnFS.SetActive(true);
         buttonOffFS.SetActive(false);
         flagFS = true;
+        Screen.fullScreen = true;
+
+        resIndex = 1;
     }
 
-    public void SetQuality(int indexQuality)
+    public void SetQuality()
     {
-        QualitySettings.SetQualityLevel(indexQuality);
+        QualitySettings.SetQualityLevel(resIndex);
     }
 
     public void UpSounds()
@@ -57,23 +86,20 @@ public class SettingsManager : MonoBehaviour
 
     public void HighRadioMethod()
     {
-        highRadioRes.isOn = true;
-        mediumRadioRes.isOn = false;
-        lowRadioRes.isOn = false;
+        resIndex = 1;
+        QualitySettings.SetQualityLevel(resIndex);
     }
     
     public void MediumRadioMethod()
     {
-        highRadioRes.isOn = false;
-        mediumRadioRes.isOn = true;
-        lowRadioRes.isOn = false;
+        resIndex = 2;
+        QualitySettings.SetQualityLevel(resIndex);
     }
     
     public void LowRadioMethod()
     {
-        highRadioRes.isOn = false;
-        mediumRadioRes.isOn = false;
-        lowRadioRes.isOn = true;
+        resIndex = 3;
+        QualitySettings.SetQualityLevel(resIndex);
     }
 
     public void ModeFullScreen()
@@ -93,5 +119,11 @@ public class SettingsManager : MonoBehaviour
             buttonOnFS.SetActive(true);
             flagFS = true;
         }
+    }
+
+    public void SetScreenSize(int indexDropDown)
+    {
+        Resolution selectedRes = resolutionList[indexDropDown];
+        Screen.SetResolution(selectedRes.width, selectedRes.height, Screen.fullScreen);
     }
 }
