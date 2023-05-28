@@ -29,7 +29,7 @@ public class EnemyShoot : MonoBehaviour
         {
             RotateToPlayer();
             lastFireBullet += Time.deltaTime;
-            if(lastFireBullet >= 3)
+            if(lastFireBullet >= 1.2)
             {
                 Shoot();
                 lastFireBullet = 0;

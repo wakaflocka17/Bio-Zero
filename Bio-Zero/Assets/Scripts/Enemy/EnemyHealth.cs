@@ -21,6 +21,7 @@ namespace Enemy
         private int powerUpProbability = 25;
         private int keyProbability = 100;
         // Start is called before the first frame update
+
         private void Start() 
         {   
             animator= GetComponent<Animator>();
@@ -57,10 +58,12 @@ namespace Enemy
                 currentPowerUp = powerUps[randomIndex];
                 Instantiate(currentPowerUp, powerUpPosition.position, powerUpPosition.rotation);
             }
+
             if(enemyType == "boss")
             {
                 Instantiate(key, powerUpPosition.position, powerUpPosition.rotation);
             }
+
             killCounter++;
             lifeBar.GameObject().SetActive(false);
             ps.setKill(1);

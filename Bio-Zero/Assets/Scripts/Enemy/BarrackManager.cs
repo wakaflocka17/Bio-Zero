@@ -8,6 +8,8 @@ public class BarrackManager : MonoBehaviour
     [SerializeField] List<GameObject> barrackList;
     private bool canContinue = false;
     private int index = 0;
+    [SerializeField] private GameObject miniboss;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,7 @@ public class BarrackManager : MonoBehaviour
         {
             index++;
             canContinue = true;
+            miniboss.SetActive(true);
         }
     }
 
