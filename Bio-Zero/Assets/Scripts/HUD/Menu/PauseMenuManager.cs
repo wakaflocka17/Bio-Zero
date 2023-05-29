@@ -1,5 +1,4 @@
 using Cinemachine;
-using Palmmedia.ReportGenerator.Core.Common;
 using Player.AimStates;
 using TMPro;
 using UnityEngine;
@@ -154,7 +153,6 @@ namespace HUD.Menu
         {
             DataManager.DataManager.instance.SaveGame();
             ConfirmSaveGame();
-            
         }
 
         public void DefeatMenu()
@@ -176,8 +174,9 @@ namespace HUD.Menu
             if (actualLevel < 4)
             {
                 DataManager.DataManager.instance.GetPlayer().numberLevel += actualLevel;
-                sceneM.ChangeScene(actualLevel);
             }
+            
+            sceneM.ChangeScene(actualLevel);
         }
 
         public void NextLevel()
@@ -189,7 +188,7 @@ namespace HUD.Menu
             {
                 nextLevel += 1;
                 DataManager.DataManager.instance.GetPlayer().numberLevel += 1;
-                DataManager.DataManager.instance.GetPlayer().numberKill = kill.text.ParseLargeInteger();
+                DataManager.DataManager.instance.SaveGame();
             }
             
             sceneM.ChangeScene(nextLevel);
