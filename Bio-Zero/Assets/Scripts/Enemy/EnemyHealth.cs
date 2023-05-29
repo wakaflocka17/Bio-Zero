@@ -70,6 +70,7 @@ namespace Enemy
         public void EnemyDeath()
         {
             spawner.enemyKilled();
+            
             if (this.gameObject.GetComponent<barrackScript>())
             {
                 powerUpProbability = 20;
@@ -86,15 +87,17 @@ namespace Enemy
 
             if (enemyType == "boss")
             {
-
                 Instantiate(key, powerUpPosition.position, powerUpPosition.rotation);
             }
-
-            killCounter++;
-            DataManager.DataManager.instance.GetPlayer().numberKill += 1;
+            
+            else if(enemyType != "nest" && enemyType != "barrack")
+            {
+                killCounter++;
+                DataManager.DataManager.instance.GetPlayer().numberKill += 1;
+                ps.setKill(1); //For HUD Elements
+            }
+            
             lifeBar.GameObject().SetActive(false);
-            ps.setKill(1);
-
         }
 
         public void Destroy()

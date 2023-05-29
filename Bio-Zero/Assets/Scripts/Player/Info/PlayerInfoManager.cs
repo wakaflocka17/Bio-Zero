@@ -3,6 +3,7 @@ using DataManager;
 using DataManager.Data;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Player.Info
@@ -22,6 +23,9 @@ namespace Player.Info
         private int nKill;
         private string nickname;
         private float timerInit;
+        private int hours;
+        private int minutes;
+        private int seconds;
 
         [Header("TextMeshProUGUI Player Info")]
         public TextMeshProUGUI nicknameText;
@@ -36,15 +40,23 @@ namespace Player.Info
         void Start()
         {
             dataManager = GameObject.FindWithTag("DataManager").GetComponent<DataManager.DataManager>();
+            
+            kill.text = DataManager.DataManager.instance.GetPlayer().numberKill.ToString();
+            level.text = SceneManager.GetActiveScene().buildIndex.ToString();
 
-            timerInit = 0f; //Timer init to zero
+            hours = DataManager.DataManager.instance.GetPlayer().hours;
+            minutes = DataManager.DataManager.instance.GetPlayer().minutes;
+            seconds = DataManager.DataManager.instance.GetPlayer().seconds;
 
-            nLevel = 0; //Level init to the first level
-            setLevel(nLevelCounter);
-
-            nKill = 0; //Kill number init to zero
-            setKill(nKill);
-
+            if (hours == 0.0f && minutes == 0.0f && seconds == 0.0f)
+            {
+                timerInit = 0f; //Timer init to zero
+            }
+            else
+            {
+                timerInit = hours * 3600f + minutes * 60f + seconds;
+            }
+            
             setNickname(dataManager.GetNickname());
         }
 

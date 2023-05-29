@@ -21,7 +21,8 @@ namespace WeaponScripts
         // Start is called before the first frame update
         void Start()
         {
-            currentAmmo = clipSize;
+            currentAmmo = DataManager.DataManager.instance.GetPlayer().currentammo;
+            extraAmmo = DataManager.DataManager.instance.GetPlayer().ammoInventory;
         
             //I've set Ammo HUD
             textCurrentAmmo.text = currentAmmo.ToString();

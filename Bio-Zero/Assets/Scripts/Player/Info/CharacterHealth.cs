@@ -18,8 +18,11 @@ namespace Player.Info
         private void Start()
         {
             animator = GetComponent<Animator>();
-            health = 100.0f;
-            shield = 0.0f;
+            health = DataManager.DataManager.instance.GetPlayer().healthPlayer;
+            sliderHealth.value = health;
+            
+            shield = DataManager.DataManager.instance.GetPlayer().shieldPlayer;
+            sliderShield.value = shield;
         }
 
         public float getHealth()

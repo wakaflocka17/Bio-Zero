@@ -20,15 +20,11 @@ namespace HUD.Menu
         public GameObject buttonPlay;
         public CinemachineBrain cameraGame;
         public CharacterController mouseController;
-        public TextMeshProUGUI level;
-        public TextMeshProUGUI kill;
 
         public SceneLoader sceneM;
 
         public void Start()
         {
-            kill.text = DataManager.DataManager.instance.GetPlayer().numberKill.ToString();
-            level.text = SceneManager.GetActiveScene().buildIndex.ToString();
             // For setting cursor position in game
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
