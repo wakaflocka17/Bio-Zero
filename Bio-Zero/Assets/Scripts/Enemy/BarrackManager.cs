@@ -21,6 +21,7 @@ public class BarrackManager : MonoBehaviour
     {
         if(AllNull() && index == 0)
         {
+            Debug.Log("Siamo dentro AllNull() nell'Update");
             index++;
             canContinue = true;
             miniboss.SetActive(true);
