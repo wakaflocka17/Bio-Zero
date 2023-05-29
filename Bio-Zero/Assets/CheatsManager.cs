@@ -15,7 +15,7 @@ public class CheatsManager : MonoBehaviour
 
     [SerializeField] private GameObject infinityAmmo;
     [SerializeField] private GameObject normalAmmo;
-    
+
 
     private void Start()
     {
@@ -70,5 +70,5 @@ public class CheatsManager : MonoBehaviour
             normalAmmo.SetActive(true);
         }
     }
-    
+
 }

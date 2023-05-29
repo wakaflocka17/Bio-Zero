@@ -11,11 +11,11 @@ namespace Player.Info
     {
         private int nLevelCounter = 1;
         private DataManager.DataManager dataManager;
-    
+
         [Header("Info Player")]
         public CharacterHealth statsLifePlayer;
         public GameObject playerPosition;
-    
+
         [Header("Info Gameplay Player")]
         private TimeSpan gameplayTimer;
         private int nLevel;
@@ -29,22 +29,22 @@ namespace Player.Info
         public TextMeshProUGUI level;
         public TextMeshProUGUI kill;
 
-        [Header("Cheats Toogle")] 
+        [Header("Cheats Toogle")]
         [SerializeField] public CheatsManager cheatController;
 
         // Start is called before the first frame update
         void Start()
         {
+            dataManager = GameObject.FindWithTag("DataManager").GetComponent<DataManager.DataManager>();
+
             timerInit = 0f; //Timer init to zero
-        
+
             nLevel = 0; //Level init to the first level
             setLevel(nLevelCounter);
 
             nKill = 0; //Kill number init to zero
             setKill(nKill);
 
-            dataManager = GameObject.FindWithTag("DataManager").GetComponent<DataManager.DataManager>();
-            
             setNickname(dataManager.GetNickname());
         }
 
@@ -67,25 +67,25 @@ namespace Player.Info
             this.nickname = nickname;
             nicknameText.text = this.nickname;
         }
-    
+
         public void setLevel(int levelToPass)
         {
             nLevel += levelToPass;
             level.text = nLevel.ToString();
         }
-    
+
         public void setKill(int killToPass)
         {
             if (killToPass == 0)
             {
                 nKill = killToPass;
             }
-        
+
             else
             {
                 nKill += killToPass;
             }
-        
+
             kill.text = nKill.ToString();
         }
 
@@ -95,13 +95,13 @@ namespace Player.Info
 
             nKill = infoPlayer.numberKill;
             nLevel = infoPlayer.numberLevel;
-        
+
             gameplayTimer = TimeSpan.FromSeconds(timerInit);
 
             statsLifePlayer.health = infoPlayer.healthPlayer;
             statsLifePlayer.shield = infoPlayer.shieldPlayer;
         }
-    
+
         public void SaveData(ref InfoGameData infoPlayer)
         {
             infoPlayer.nickname = nickname;
@@ -118,6 +118,6 @@ namespace Player.Info
             infoPlayer.minutes = gameplayTimer.Minutes;
             infoPlayer.seconds = gameplayTimer.Seconds;
         }
-        
+
     }
 }

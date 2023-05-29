@@ -59,10 +59,10 @@ namespace WeaponScripts
             textAmmoInventory.text = extraAmmo.ToString();
         }
 
-        public void AddAmmo(int extraAmmo)
+        public void AddAmmo(int extra)
         {
             this.extraAmmo += extraAmmo;
-            textAmmoInventory.text = extraAmmo.ToString();
+            textAmmoInventory.text = this.extraAmmo.ToString();
         }
 
         public void LoadData(InfoGameData infoPlayer)

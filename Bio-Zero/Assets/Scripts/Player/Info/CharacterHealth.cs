@@ -13,9 +13,9 @@ namespace Player.Info
         Animator animator;
         [SerializeField] private PauseMenuManager pauseM;
         [SerializeField] private CheatsManager cheatController;
-        
+
         // Start is called before the first frame update
-        private void Start() 
+        private void Start()
         {
             animator = GetComponent<Animator>();
             health = 100.0f;
@@ -36,22 +36,23 @@ namespace Player.Info
         {
             if (!cheatController.cheatNoDamageToggle.isOn)
             {
-                if(shield > 0)
+                if (shield > 0)
                 {
+                    shield -= damage;
                     sliderShield.value = shield;
-            
-                    if(shield < 0)
+
+                    if (shield < 0)
                     {
                         shield = 0;
                     }
                 }
-        
-                else if(health > 0)
+
+                else if (health > 0)
                 {
                     health -= damage;
                     sliderHealth.value = health;
-            
-                    if(health <= 0)
+
+                    if (health <= 0)
                         EnemyDeath();
                 }
             }

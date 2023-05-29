@@ -27,6 +27,7 @@ namespace HUD.Menu
 
         public void Start()
         {
+            kill.text = DataManager.DataManager.instance.GetPlayer().numberKill.ToString();
             level.text = SceneManager.GetActiveScene().buildIndex.ToString();
             // For setting cursor position in game
             Cursor.visible = false;
@@ -47,23 +48,23 @@ namespace HUD.Menu
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && buttonPressed == false) 
+            if (Input.GetKeyDown(KeyCode.Escape) && buttonPressed == false)
             {
                 Pause();
             }
-        
+
             else if (Input.GetKeyDown(KeyCode.Escape) && buttonPressed)
             {
                 Resume();
             }
         }
-    
+
         public void Pause()
         {
             // For setting cursor position in game
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-        
+
             /* Not visible HUD Elements */
             buttonPause.SetActive(false);
             confirmMenu.SetActive(false);
@@ -74,7 +75,7 @@ namespace HUD.Menu
             cameraGame.enabled = false;
             mouseController.enabled = false;
             FindObjectOfType<AimStateManager>().setMouseSense(0);
-        
+
             /* Visible HUD Elements */
             buttonPressed = true;
             pauseMenu.SetActive(true);
@@ -89,7 +90,7 @@ namespace HUD.Menu
             // For setting cursor position in game
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-        
+
             /* Not visible HUD Elements */
             buttonPressed = false;
             confirmMenu.SetActive(false);
@@ -99,13 +100,13 @@ namespace HUD.Menu
             cheatsMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
             buttonPlay.SetActive(false);
-        
+
             /* Visible HUD Elements */
             buttonPause.SetActive(true);
             cameraGame.enabled = true;
             mouseController.enabled = true;
             FindObjectOfType<AimStateManager>().setMouseSense(1);
-        
+
             /* Starting TimeScale meanwhile user pressing Escape Key */
             Time.timeScale = 1f;
         }
@@ -159,7 +160,7 @@ namespace HUD.Menu
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-            
+
             pauseMenu.SetActive(false);
             optionsMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
@@ -173,16 +174,16 @@ namespace HUD.Menu
 
             if (actualLevel < 4)
             {
-                DataManager.DataManager.instance.GetPlayer().numberLevel += actualLevel;
+                DataManager.DataManager.instance.GetPlayer().numberLevel = actualLevel;
             }
-            
+
             sceneM.ChangeScene(actualLevel);
         }
 
         public void NextLevel()
         {
             int nextLevel = SceneManager.GetActiveScene().buildIndex;
-            
+
             //Because 0,1,2,3 are Scene on Game
             if (nextLevel < 4)
             {
@@ -190,7 +191,7 @@ namespace HUD.Menu
                 DataManager.DataManager.instance.GetPlayer().numberLevel += 1;
                 DataManager.DataManager.instance.SaveGame();
             }
-            
+
             sceneM.ChangeScene(nextLevel);
         }
 

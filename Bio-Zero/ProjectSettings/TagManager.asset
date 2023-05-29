@@ -16,6 +16,7 @@ TagManager:
   - DataManager
   - Weapon
   - SpherePos
+  - Spawner
   layers:
   - Default
   - TransparentFX

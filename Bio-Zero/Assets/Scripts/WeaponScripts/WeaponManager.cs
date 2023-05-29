@@ -8,9 +8,9 @@ namespace WeaponScripts
 {
     public class WeaponManager : MonoBehaviour
     {
-        [Header("Image Weapon")] 
+        [Header("Image Weapon")]
         [SerializeField] public Sprite imageWeapon;
-        
+
         [Header("Fire Rate")]
         [SerializeField] float fireRate;
         private float fireRateTimer;
@@ -44,7 +44,7 @@ namespace WeaponScripts
         Rigidbody rb;
         MeshCollider coll;
         public Transform player, weapons, fpsCam;
-        
+
 
         public float pickUpRange;
         public float dropForwardForce, dropUpwardForce;
@@ -59,7 +59,7 @@ namespace WeaponScripts
         // Start is called before the first frame update
         private void Start()
         {
-            
+
             hipFov = vCam.m_Lens.FieldOfView;
             audioSource = GetComponent<AudioSource>();
             ammo = GetComponent<WeaponAmmo>();
@@ -71,12 +71,12 @@ namespace WeaponScripts
             rb = GetComponent<Rigidbody>();
             coll = GetComponent<MeshCollider>();
 
-            if(!equipped)//Setup if (lequipped)
+            if (!equipped)//Setup if (lequipped)
             {
                 rb.isKinematic = false;
                 coll.isTrigger = false;
             }
-        
+
             else
             {
                 this.enabled = true;
@@ -85,19 +85,19 @@ namespace WeaponScripts
                 slotFull = true;
                 inventoryM.AddWeapon(this);
             }
-        
+
         }
 
         // Update is called once per frame
         private void Update()
         {
-            if(actions.weapons.Count >= 3)
+            if (actions.weapons.Count >= 3)
                 slotFull = true;
-            else 
+            else
                 slotFull = false;
 
 
-            if(ShouldFire()) 
+            if (ShouldFire())
             {
                 //recoil.ApplyRecoil();
                 //vCam.m_Lens.FieldOfView = Mathf.Lerp(vCam.m_Lens.FieldOfView, currentFov, fovSmoothSpeed * Time.deltaTime);
@@ -105,11 +105,11 @@ namespace WeaponScripts
             }
 
             Vector3 distanceToPlayer = player.position - transform.position;
-            if (!equipped && distanceToPlayer.magnitude <= pickUpRange && Input.GetKeyDown(KeyCode.E) && !slotFull) 
+            if (!equipped && distanceToPlayer.magnitude <= pickUpRange && Input.GetKeyDown(KeyCode.E) && !slotFull)
             {
                 PickUp();
             }
-       
+
             muzzleFlashlight.intensity = Mathf.Lerp(muzzleFlashlight.intensity, 0, lightReturnSpeed * Time.deltaTime);
         }
 
@@ -117,25 +117,25 @@ namespace WeaponScripts
         {
             fireRateTimer += Time.deltaTime;
 
-            if(!this.equipped)
+            if (!this.equipped)
                 return false;
 
-            if(ammo.currentAmmo == 0) 
-                return false;
-            
-            if(playerHealth.health <= 0)
+            if (ammo.currentAmmo == 0)
                 return false;
 
-            if(fireRateTimer < fireRate) 
+            if (playerHealth.health <= 0)
                 return false;
-            if(actions.currentState == actions.Reload) return false;
 
-            if(semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) 
+            if (fireRateTimer < fireRate)
+                return false;
+            if (actions.currentState == actions.Reload) return false;
+
+            if (semiAuto && Input.GetKeyDown(KeyCode.Mouse0))
                 return true;
 
-            if(!semiAuto && Input.GetKey(KeyCode.Mouse0)) 
+            if (!semiAuto && Input.GetKey(KeyCode.Mouse0))
                 return true;
-        
+
             return false;
         }
 
@@ -148,12 +148,12 @@ namespace WeaponScripts
                 ammo.currentAmmo--;
                 ammo.textCurrentAmmo.text = ammo.currentAmmo.ToString(); //Ammo TextProUGui
             }
-            
+
             TriggerMuzzleFlash();
             barrelPos.LookAt(aim.aimPos);
-            
-        
-            for(int i = 0; i < bulletsPerShot; i++)
+
+
+            for (int i = 0; i < bulletsPerShot; i++)
             {
                 audioSource.PlayOneShot(gunShot);
                 GameObject currentBullet = Instantiate(bullet, barrelPos.position, barrelPos.rotation);
@@ -174,7 +174,7 @@ namespace WeaponScripts
         public void PickUp()
         {
             equipped = true;
-        
+
             transform.SetParent(weapons);
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.Euler(Vector3.zero);
@@ -183,7 +183,7 @@ namespace WeaponScripts
             //Make Rigidbody kinematic and BoxCollider a trigger
             rb.isKinematic = true;
             coll.isTrigger = false;
-            if(actions.weapons.Count == 0)
+            if (actions.weapons.Count == 0)
             {
                 gameObject.SetActive(true);
             }
@@ -195,16 +195,16 @@ namespace WeaponScripts
 
         public void Drop()
         {
-            if(equipped) 
+            if (equipped)
             {
                 Debug.Log("drop");
                 equipped = false;
-            
+
                 transform.SetParent(null);
 
                 rb.isKinematic = false;
                 coll.isTrigger = false;
-                
+
                 rb.velocity = player.GetComponent<CharacterController>().velocity;
                 //AddForce
                 rb.AddForce(fpsCam.forward * dropForwardForce, ForceMode.Impulse);
