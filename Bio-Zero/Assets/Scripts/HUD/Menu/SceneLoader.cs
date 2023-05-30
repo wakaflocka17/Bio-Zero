@@ -9,6 +9,12 @@ namespace HUD.Menu
         {
             SceneManager.LoadScene(idScene);
         }
-    
+        
+        public void QuitGame()
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+            Application.Quit();
+        }
+        
     }
 }

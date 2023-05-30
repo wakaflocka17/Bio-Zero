@@ -16,9 +16,9 @@ public class SettingsManager : MonoBehaviour
     [Header("Resolution Menu Element")]
     /* I've use this only for setup the real logic button */
     private int resIndex;
-    private Toggle highRadioRes;
-    private Toggle mediumRadioRes;
-    private Toggle lowRadioRes;
+    private Toggle highQualityToggle;
+    private Toggle mediumQualityToggle;
+    private Toggle lowQualityToggle;
 
     [Header("FullScreen Menu Element")] 
     public GameObject buttonOnFS;
@@ -60,12 +60,37 @@ public class SettingsManager : MonoBehaviour
         flagFS = true;
         Screen.fullScreen = true;
 
-        resIndex = 1;
+        indexDropDown = QualitySettings.GetQualityLevel();
+        highQualityToggle.isOn = (indexDropDown == 1);
+        mediumQualityToggle.isOn = (indexDropDown == 2);
+        lowQualityToggle.isOn = (indexDropDown == 3);
     }
 
-    public void SetQuality()
+    public void HighQualityMethod(bool isOn)
     {
-        QualitySettings.SetQualityLevel(resIndex);
+        if (isOn)
+        {
+            resIndex = 1;
+            QualitySettings.SetQualityLevel(resIndex);
+        }
+    }
+
+    public void MediumQualityMethod(bool isOn)
+    {
+        if (isOn)
+        {
+            resIndex = 2;
+            QualitySettings.SetQualityLevel(resIndex);
+        }
+    }
+
+    public void LowQualityMethod(bool isOn)
+    {
+        if (isOn)
+        {
+            resIndex = 3;
+            QualitySettings.SetQualityLevel(resIndex);
+        }
     }
 
     public void UpSounds()

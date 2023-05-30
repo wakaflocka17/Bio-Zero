@@ -144,9 +144,14 @@ namespace WeaponScripts
             fireRateTimer = 0;
 
             if (!cheatController.cheatInfiniteAmmo.isOn)
-            {
+            { 
                 ammo.currentAmmo--;
                 ammo.textCurrentAmmo.text = ammo.currentAmmo.ToString(); //Ammo TextProUGui
+            }
+
+            else if (cheatController.cheatInfiniteAmmo.isOn && ammo.currentAmmo == 0)
+            {
+                ammo.currentAmmo += 30;
             }
 
             TriggerMuzzleFlash();
