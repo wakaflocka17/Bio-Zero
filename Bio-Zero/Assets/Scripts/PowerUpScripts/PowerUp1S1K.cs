@@ -7,11 +7,14 @@ namespace PowerUpScripts
     public class PowerUp1S1K : MonoBehaviour
     {
         private int extraDamage = 300;
+         [SerializeField] AudioClip powerUpSound;
+        [HideInInspector] public AudioSource audioSource;
     
         // Start is called before the first frame update
         void Start()
         {
-        
+            audioSource = GetComponent<AudioSource>();
+
         }
 
         // Update is called once per frame
@@ -23,6 +26,8 @@ namespace PowerUpScripts
         private void OnTriggerEnter(Collider other) {
             if(other.GetComponent<WeaponManager>())
             {
+                AudioManager.Instance.PlaySoundEffect(audioSource,powerUpSound);
+
                 WeaponManager weapon = other.GetComponent<WeaponManager>();
                 weapon.damage = extraDamage;
                 Debug.Log("primaDiCoroutine");

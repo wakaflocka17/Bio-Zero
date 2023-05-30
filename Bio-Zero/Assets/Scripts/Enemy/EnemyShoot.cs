@@ -15,11 +15,15 @@ public class EnemyShoot : MonoBehaviour
     private float lastFireBullet = 4;
     private float bulletVelocity = 100;
     [SerializeField] private ActionStateManager player;
+     [SerializeField] AudioClip gunShotSound;
+        [HideInInspector] public AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -46,6 +50,7 @@ public class EnemyShoot : MonoBehaviour
 
     public void Shoot()
     {
+        AudioManager.Instance.PlaySoundEffect(audioSource,gunShotSound);
         currentBullet = Instantiate(bullet, barrelPos.transform.position, barrelPos.transform.rotation);
         Rigidbody rigidbody = currentBullet.GetComponent<Rigidbody>();
         rigidbody.AddForce(barrelPos.transform.forward * bulletVelocity, ForceMode.Impulse);

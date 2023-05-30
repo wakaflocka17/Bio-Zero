@@ -160,7 +160,8 @@ namespace WeaponScripts
 
             for (int i = 0; i < bulletsPerShot; i++)
             {
-                audioSource.PlayOneShot(gunShot);
+                //audioSource.PlayOneShot(gunShot);
+                AudioManager.Instance.PlaySoundEffect(audioSource,gunShot);
                 GameObject currentBullet = Instantiate(bullet, barrelPos.position, barrelPos.rotation);
 
                 Bullet bulletScript = currentBullet.GetComponent<Bullet>();

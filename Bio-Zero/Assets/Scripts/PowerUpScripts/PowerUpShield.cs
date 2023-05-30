@@ -8,10 +8,13 @@ namespace PowerUpScripts
     {
         private float shield = 25;
         public Slider shieldSlider;
+         [SerializeField] AudioClip powerUpSound;
+        [HideInInspector] public AudioSource audioSource;
 
         // Start is called before the first frame update
         void Start()
         {
+            audioSource = GetComponent<AudioSource>();
 
         }
 
@@ -21,6 +24,7 @@ namespace PowerUpScripts
             if (other.GetComponent<CharacterHealth>())
             {
                 print("1");
+                AudioManager.Instance.PlaySoundEffect(audioSource,powerUpSound); 
                 CharacterHealth player = other.GetComponent<CharacterHealth>();
                 if (player.shield <= 100)
                 {

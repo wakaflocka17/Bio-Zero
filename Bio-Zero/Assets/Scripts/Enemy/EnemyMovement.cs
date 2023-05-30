@@ -19,6 +19,11 @@ namespace Enemy
 
         [SerializeField] private float rangeAlert;
         [SerializeField] private float rangeAttack;
+
+        [SerializeField] AudioClip walkSound;
+        [SerializeField] AudioClip hitSoundSword;
+        [SerializeField] AudioClip gunShotSound;
+        [HideInInspector] public AudioSource audioSource;
     
         private float waitTime;
         private float initWaitTime = 1f;
@@ -37,6 +42,7 @@ namespace Enemy
             health = GetComponent<EnemyHealth>();								
             enemy = GetComponent<NavMeshAgent>();
             enemyState = GetComponent<Animator>();
+            audioSource = GetComponent<AudioSource>();
             waitTime = initWaitTime;
             pathEnemyIndex = Random.Range(0, pathEnemy.Length);
         }
@@ -155,6 +161,24 @@ namespace Enemy
             bloodSplatter.Stop();
         }
 
-        //void rotateToPlayer
+        public void FootL (){
+
+            
+            
+            AudioManager.Instance.PlaySoundEffect(audioSource,walkSound);
+        }
+        public void FootR (){
+            AudioManager.Instance.PlaySoundEffect(audioSource,walkSound);
+        }
+
+        public void Hit (){
+            AudioManager.Instance.PlaySoundEffect(audioSource,hitSoundSword);
+
+        }
+        public void Shoot (){
+            AudioManager.Instance.PlaySoundEffect(audioSource,gunShotSound);
+
+        }
+
     }
 }
