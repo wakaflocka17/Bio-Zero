@@ -2,6 +2,7 @@ using System;
 using DataManager;
 using DataManager.Data;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -106,7 +107,10 @@ namespace Player.Info
             playerPosition.transform.position = infoPlayer.coordPlayer;
 
             nKill = infoPlayer.numberKill;
+            kill.text = nKill.ToString();
+            
             nLevel = infoPlayer.numberLevel;
+            level.text = nLevel.ToString();
 
             gameplayTimer = TimeSpan.FromSeconds(timerInit);
 
@@ -124,7 +128,7 @@ namespace Player.Info
             infoPlayer.shieldPlayer = statsLifePlayer.shield;
 
             infoPlayer.numberKill = nKill;
-            infoPlayer.numberLevel = nLevel;
+            infoPlayer.numberLevel = int.Parse(level.text);
 
             infoPlayer.hours = gameplayTimer.Hours;
             infoPlayer.minutes = gameplayTimer.Minutes;

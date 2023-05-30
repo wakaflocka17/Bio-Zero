@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DataManager.Data;
 using UnityEngine;
 using System.IO;
+using Newtonsoft.Json;
 
 public class jsonReader : MonoBehaviour
 {
@@ -18,13 +19,14 @@ public class jsonReader : MonoBehaviour
             // Leggi il contenuto del file JSON
             string jsonContent = File.ReadAllText(jsonFilePath);
 
-            // Deserializza il contenuto del file JSON nella classe InfoGameData
-            InfoGameData dataInfo = JsonUtility.FromJson<InfoGameData>(jsonContent);
-            
+            // Deserializza il contenuto del file JSON nella classe InfoGameData utilizzando Newtonsoft.Json
+            InfoGameData dataInfo = JsonConvert.DeserializeObject<InfoGameData>(jsonContent);
+
             // Aggiungi i dati del singolo file corrente alla lista generale
             dataPlayerList.Add(dataInfo);
         }
     }
+
 
     public List<InfoGameData> getPlayerList()
     {

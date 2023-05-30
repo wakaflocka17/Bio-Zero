@@ -149,6 +149,7 @@ namespace HUD.Menu
         public void PressedButtonSave()
         {
             DataManager.DataManager.instance.SaveGame();
+            Debug.Log("Questo livello è il numero: " + DataManager.DataManager.instance.GetPlayer().numberLevel);
             ConfirmSaveGame();
         }
 
@@ -167,12 +168,7 @@ namespace HUD.Menu
         public void GoToGame()
         {
             int actualLevel = SceneManager.GetActiveScene().buildIndex;
-
-            if (actualLevel < 4)
-            {
-                DataManager.DataManager.instance.GetPlayer().numberLevel = actualLevel;
-            }
-
+            
             sceneM.ChangeScene(actualLevel);
         }
 
@@ -180,8 +176,8 @@ namespace HUD.Menu
         {
             int nextLevel = SceneManager.GetActiveScene().buildIndex;
 
-            //Because 0,1,2,3 are Scene on Game
-            if (nextLevel < 4)
+            //Because 0,1,2,3,4 are Scene on Game
+            if (nextLevel < 5)
             {
                 nextLevel += 1;
                 DataManager.DataManager.instance.GetPlayer().numberLevel += 1;

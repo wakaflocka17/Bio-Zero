@@ -34,6 +34,7 @@ namespace DataManager
         private void Start()
         {
             dataHandler = new FileDataHandler(Application.persistentDataPath, "");
+            Debug.Log("Path dentro DataManager: " + Application.persistentDataPath);
             dataObjects = FindAllDataObjects();
         }
 
