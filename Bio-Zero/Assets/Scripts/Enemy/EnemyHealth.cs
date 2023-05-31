@@ -1,7 +1,9 @@
 using Player.Info;
 using UnityEngine;
 using System.Collections.Generic;
+using HUD.Menu;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
@@ -27,13 +29,15 @@ namespace Enemy
         [SerializeField] private GameObject key;
         private int powerUpProbability = 25;
         private int keyProbability = 100;
+
+        [SerializeField] public PauseMenuManager pauseManager;
+        
         // Start is called before the first frame update
 
         private void Start()
         {
             spawner = GameObject.FindWithTag("Spawner").GetComponent<EnemyZombiesSpawner>();
             animator = GetComponent<Animator>();
-            flagMiniB = false;
             lifeBar.value = health;
             lifeBar.GameObject().SetActive(true);
         }
@@ -90,7 +94,8 @@ namespace Enemy
             if (enemyType == "boss")
             {
                 Instantiate(key, powerUpPosition.position, powerUpPosition.rotation);
-                flagMiniB = true;
+                pauseManager.miniBossFlag = true;
+                Debug.Log("Il mini boss flag vale: " + pauseManager.miniBossFlag);
             }
             
             else if(enemyType != "nest" && enemyType != "barrack")
@@ -106,11 +111,6 @@ namespace Enemy
         public void Destroy()
         {
             Destroy(this.gameObject);
-        }
-
-        public bool checkFlagLaboratory()
-        {
-            return flagMiniB;
         }
     }
 }

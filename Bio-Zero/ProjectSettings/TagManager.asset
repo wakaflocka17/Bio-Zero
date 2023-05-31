@@ -23,6 +23,8 @@ TagManager:
   - alertMiniBoss
   - alertFinalBoss
   - LevelManager
+  - MiniBossManager
+  - MiniBossDad
   layers:
   - Default
   - TransparentFX

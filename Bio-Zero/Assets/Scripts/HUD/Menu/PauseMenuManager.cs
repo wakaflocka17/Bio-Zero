@@ -36,8 +36,7 @@ namespace HUD.Menu
         [Header("Alert Second Level")] 
         private GameObject alertBarrack;
         public GameObject alertMiniBoss;
-        private EnemyHealth enemyH;
-        private bool miniBossFlag;
+        public bool miniBossFlag;
 
         [Header("Alert Third Level")] 
         private GameObject alertFinalBoss;
@@ -80,19 +79,27 @@ namespace HUD.Menu
                 Resume();
             }
 
-            if (levelM.GetTriggerPortal() && portalFlag == false) 
+            switch (SceneManager.GetActiveScene().buildIndex)
             {
-                StartCoroutine(WaitForGameObject(alertPortal));
-                portalFlag = true;
+                case 1: 
+                    if (levelM.GetTriggerPortal() && portalFlag == false) 
+                    {
+                        StartCoroutine(WaitForGameObject(alertPortal));
+                        portalFlag = true;
+                    }
+
+                    break;
+                
+                case 2: 
+                    if (miniBossFlag)
+                    {
+                        StartCoroutine(WaitForGameObject(alertMiniBoss));
+                        miniBossFlag = false;
+                    }
+
+                    break;
             }
 
-            if (enemyH.checkFlagLaboratory() && miniBossFlag == false)
-            {
-                StartCoroutine(WaitForGameObject(alertMiniBoss));
-                miniBossFlag = true;
-            }
-            
-            
         }
 
         public void Pause()
@@ -241,15 +248,12 @@ namespace HUD.Menu
                     
                     break;
                 
-                case 2:
-                    enemyH = GameObject.FindWithTag("MiniBossManager").gameObject.GetComponent<EnemyHealth>();
+                case 2: 
                     alertBarrack = GameObject.FindWithTag("alertBarrack");
                     alertMiniBoss = GameObject.FindWithTag("alertMiniBoss");
-                    alertPortal = GameObject.FindWithTag("alertPortal");
-                    
+
                     alertBarrack.SetActive(false);
                     alertMiniBoss.SetActive(false);
-                    alertPortal.SetActive(false);
                     
                     break;
                 
