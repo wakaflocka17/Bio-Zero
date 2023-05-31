@@ -1,6 +1,8 @@
+using System.Collections;
 using Cinemachine;
+using Enemy;
+using Enemy.Nest;
 using Player.AimStates;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,8 +25,30 @@ namespace HUD.Menu
 
         public SceneLoader sceneM;
 
+        [Header("Common Alert Levels")] 
+        public GameObject alertPortal;
+        private bool portalFlag;
+        
+        [Header("Alert First Level")] 
+        private GameObject alertNest;
+        private LevelManager levelM;
+
+        [Header("Alert Second Level")] 
+        private GameObject alertBarrack;
+        public GameObject alertMiniBoss;
+        private EnemyHealth enemyH;
+        private bool miniBossFlag;
+
+        [Header("Alert Third Level")] 
+        private GameObject alertFinalBoss;
+
         public void Start()
         {
+            SetupAlertMission();
+            
+            portalFlag = false;
+            miniBossFlag = false;
+            
             // For setting cursor position in game
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
@@ -40,6 +64,8 @@ namespace HUD.Menu
             pauseMenu.SetActive(false);
             saveProgressMenu.SetActive(false);
             optionsMenu.SetActive(false);
+            
+            CheckFirstAlertMissionLevel();
         }
 
         public void Update()
@@ -53,6 +79,20 @@ namespace HUD.Menu
             {
                 Resume();
             }
+
+            if (levelM.GetTriggerPortal() && portalFlag == false) 
+            {
+                StartCoroutine(WaitForGameObject(alertPortal));
+                portalFlag = true;
+            }
+
+            if (enemyH.checkFlagLaboratory() && miniBossFlag == false)
+            {
+                StartCoroutine(WaitForGameObject(alertMiniBoss));
+                miniBossFlag = true;
+            }
+            
+            
         }
 
         public void Pause()
@@ -185,6 +225,63 @@ namespace HUD.Menu
             }
 
             sceneM.ChangeScene(nextLevel);
+        }
+        
+        public void SetupAlertMission()
+        {
+            switch (SceneManager.GetActiveScene().buildIndex)
+            {
+                case 1:
+                    alertNest = GameObject.FindWithTag("alertNest");
+                    levelM = GameObject.FindWithTag("LevelManager").gameObject.GetComponent<LevelManager>();
+                    alertPortal = GameObject.FindWithTag("alertPortal");
+
+                    alertNest.SetActive(false);
+                    alertPortal.SetActive(false);
+                    
+                    break;
+                
+                case 2:
+                    enemyH = GameObject.FindWithTag("MiniBossManager").gameObject.GetComponent<EnemyHealth>();
+                    alertBarrack = GameObject.FindWithTag("alertBarrack");
+                    alertMiniBoss = GameObject.FindWithTag("alertMiniBoss");
+                    alertPortal = GameObject.FindWithTag("alertPortal");
+                    
+                    alertBarrack.SetActive(false);
+                    alertMiniBoss.SetActive(false);
+                    alertPortal.SetActive(false);
+                    
+                    break;
+                
+                case 3:
+                    alertFinalBoss = GameObject.FindWithTag("alertFinalBoss");
+                    
+                    alertFinalBoss.SetActive(false);
+                    
+                    break;
+            }
+        }
+        
+        public IEnumerator WaitForGameObject(GameObject genericsAlert)
+        {
+            genericsAlert.SetActive(true);
+            yield return new WaitForSeconds(2);
+            genericsAlert.SetActive(false); 
+        }
+
+        public void CheckFirstAlertMissionLevel()
+        {
+            switch (SceneManager.GetActiveScene().buildIndex)
+            {
+                case 1: StartCoroutine(WaitForGameObject(alertNest));
+                    break;
+                
+                case 2: StartCoroutine(WaitForGameObject(alertBarrack));
+                        break;
+                
+                case 3: StartCoroutine(WaitForGameObject(alertFinalBoss));
+                        break;
+            }
         }
 
     }

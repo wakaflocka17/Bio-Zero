@@ -17,6 +17,12 @@ TagManager:
   - Weapon
   - SpherePos
   - Spawner
+  - alertNest
+  - alertPortal
+  - alertBarrack
+  - alertMiniBoss
+  - alertFinalBoss
+  - LevelManager
   layers:
   - Default
   - TransparentFX

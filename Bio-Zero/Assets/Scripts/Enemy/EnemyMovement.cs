@@ -162,9 +162,6 @@ namespace Enemy
         }
 
         public void FootL (){
-
-            
-            
             AudioManager.Instance.PlaySoundEffect(audioSource,walkSound);
         }
         public void FootR (){
@@ -177,7 +174,6 @@ namespace Enemy
         }
         public void Shoot (){
             AudioManager.Instance.PlaySoundEffect(audioSource,gunShotSound);
-
         }
 
     }

@@ -1,30 +1,60 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+namespace Enemy.Nest
 {
-    [SerializeField] private List<GameObject> nestes;
-    [SerializeField] private GameObject portal;
-    // Start is called before the first frame update
-    void Start()
+    public class LevelManager : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private List<GameObject> nestes;
+        [SerializeField] private GameObject portal;
+        private bool flagAlertPortal;
+        private GameObject alertPortal;
 
-    // Update is called once per frame
-    void Update()
-    {
-        int i = 0;
-        foreach (GameObject g in nestes)
+        // Start is called before the first frame update
+        void Start()
         {
-           if(g.activeSelf)
-               break;
-            else
-                i++;
+            flagAlertPortal = false;
         }
 
-        if(i == nestes.Count)
-            portal.SetActive(true);
+        // Update is called once per frame
+        void Update()
+        {
+            int i = 0;
+        
+            foreach (GameObject g in nestes)
+            {
+                if(g.activeSelf)
+                    break;
+                else
+                {
+                    i++;
+                }
+            }
+
+            if (checkNestes(i))
+            {
+                flagAlertPortal = true;
+                portal.SetActive(true);
+            }
+            
+        }
+
+        public bool checkNestes(int index)
+        {
+            if (index == nestes.Count)
+            {
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool GetTriggerPortal()
+        {
+            return flagAlertPortal;
+        }
     }
 }

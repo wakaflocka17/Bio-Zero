@@ -18,6 +18,7 @@ namespace Enemy
         [SerializeField] private Transform powerUpPosition;
         public PlayerInfoManager ps;
         private GameObject currentPowerUp;
+        private bool flagMiniB;
 
         [SerializeField] public CheatsManager cheatController;
 
@@ -32,6 +33,7 @@ namespace Enemy
         {
             spawner = GameObject.FindWithTag("Spawner").GetComponent<EnemyZombiesSpawner>();
             animator = GetComponent<Animator>();
+            flagMiniB = false;
             lifeBar.value = health;
             lifeBar.GameObject().SetActive(true);
         }
@@ -88,6 +90,7 @@ namespace Enemy
             if (enemyType == "boss")
             {
                 Instantiate(key, powerUpPosition.position, powerUpPosition.rotation);
+                flagMiniB = true;
             }
             
             else if(enemyType != "nest" && enemyType != "barrack")
@@ -103,6 +106,11 @@ namespace Enemy
         public void Destroy()
         {
             Destroy(this.gameObject);
+        }
+
+        public bool checkFlagLaboratory()
+        {
+            return flagMiniB;
         }
     }
 }
