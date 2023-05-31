@@ -30,6 +30,7 @@ namespace Enemy
         // Update is called once per frame
         void Update()
         {
+            
             if(currentScene.name == "Town")
             {
                 maxZombies = 25;

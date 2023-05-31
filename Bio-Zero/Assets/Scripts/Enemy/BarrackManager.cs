@@ -19,7 +19,8 @@ public class BarrackManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(AllNull() && index == 0)
+        RemoveNullBarrack();
+        if(barrackList.Count == 0 && index == 0)
         {
             Debug.Log("Siamo dentro AllNull() nell'Update");
             index++;
@@ -28,17 +29,15 @@ public class BarrackManager : MonoBehaviour
         }
     }
 
-    private bool AllNull()
+    private void RemoveNullBarrack()
     {
         foreach(GameObject barrack in barrackList)
         {
-            if(barrack != null)
+            if(barrack == null)
             {
-                return false;
+                barrackList.Remove(barrack);
             }
         }
-        print("All null");
-        return true;
     }
 
     public bool GetContinue()

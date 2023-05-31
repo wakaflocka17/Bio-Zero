@@ -35,6 +35,7 @@ public class EnemyShoot : MonoBehaviour
             lastFireBullet += Time.deltaTime;
             if(lastFireBullet >= 1.2)
             {
+                
                 Shoot();
                 lastFireBullet = 0;
             } 
@@ -50,6 +51,7 @@ public class EnemyShoot : MonoBehaviour
 
     public void Shoot()
     {
+
         AudioManager.Instance.PlaySoundEffect(audioSource,gunShotSound);
         currentBullet = Instantiate(bullet, barrelPos.transform.position, barrelPos.transform.rotation);
         Rigidbody rigidbody = currentBullet.GetComponent<Rigidbody>();

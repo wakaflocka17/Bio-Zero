@@ -18,6 +18,7 @@ public class AudioManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+        DontDestroyOnLoad(this.gameObject);
 
         _menuMusic = Resources.Load<AudioClip>("MenuMusicAudioClip");
         _mainMenuMusic = Resources.Load<AudioClip>("MainMenuMusicAudioClip");

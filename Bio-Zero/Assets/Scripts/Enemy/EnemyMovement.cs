@@ -22,7 +22,6 @@ namespace Enemy
 
         [SerializeField] AudioClip walkSound;
         [SerializeField] AudioClip hitSoundSword;
-        [SerializeField] AudioClip gunShotSound;
         [HideInInspector] public AudioSource audioSource;
     
         private float waitTime;
@@ -171,9 +170,6 @@ namespace Enemy
         public void Hit (){
             AudioManager.Instance.PlaySoundEffect(audioSource,hitSoundSword);
 
-        }
-        public void Shoot (){
-            AudioManager.Instance.PlaySoundEffect(audioSource,gunShotSound);
         }
 
     }

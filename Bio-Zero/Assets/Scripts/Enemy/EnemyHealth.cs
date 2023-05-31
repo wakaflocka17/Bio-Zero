@@ -24,7 +24,7 @@ namespace Enemy
 
         [SerializeField] public CheatsManager cheatController;
 
-
+        [SerializeField] private GameObject labDoor;
         [SerializeField] private string enemyType;
         [SerializeField] private GameObject key;
         private int powerUpProbability = 25;
@@ -91,9 +91,8 @@ namespace Enemy
                 Instantiate(currentPowerUp, powerUpPosition.position, powerUpPosition.rotation);
             }
 
-            if (enemyType == "boss")
+            if (enemyType.Equals("boss"))
             {
-                Instantiate(key, powerUpPosition.position, powerUpPosition.rotation);
                 pauseManager.miniBossFlag = true;
                 Debug.Log("Il mini boss flag vale: " + pauseManager.miniBossFlag);
             }

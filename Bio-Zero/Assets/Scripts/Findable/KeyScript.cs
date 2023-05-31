@@ -7,6 +7,7 @@ public class KeyScript : MonoBehaviour
 {
 
     private bool canContinue = false;
+    public bool isMiniBossDead = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +17,6 @@ public class KeyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private void OnTriggerEnter(Collider other) {

@@ -7,14 +7,13 @@ namespace PowerUpScripts
     public class PowerUp1S1K : MonoBehaviour
     {
         private int extraDamage = 300;
-         [SerializeField] AudioClip powerUpSound;
+        [SerializeField] AudioClip powerUpSound;
         [HideInInspector] public AudioSource audioSource;
     
         // Start is called before the first frame update
         void Start()
         {
             audioSource = GetComponent<AudioSource>();
-
         }
 
         // Update is called once per frame

@@ -5,7 +5,7 @@ namespace Boss
 {
     public class Weapon : MonoBehaviour
     {
-        private int damage;
+        [SerializeField] private int damage;
         
 
         public BossAIMovement boss;
@@ -13,7 +13,6 @@ namespace Boss
     
         public void Start()
         {
-            damage = 10;
         }
 
         private void OnTriggerEnter(Collider other)
